@@ -1,0 +1,319 @@
+{
+  "admin": {
+    "auth": {
+      "backSignIn": "Retour a la connexion",
+      "forgotPassword": {
+        "asideDescription": "Recevez un lien securise pour definir un nouveau mot de passe et revenir a l'administration.",
+        "asideFootnote": "Le formulaire ne confirme jamais publiquement l'existence d'un compte associe a l'adresse.",
+        "description": "Demandez un lien de reinitialisation pour votre compte administrateur."
+      },
+      "forgotPasswordSent": {
+        "asideFootnote": "La connexion reste limitee aux comptes disposant du role administrateur."
+      },
+      "resetPassword": {
+        "asideDescription": "Choisissez un nouveau mot de passe avant de revenir a votre espace d'administration.",
+        "asideFootnote": "Le changement de mot de passe ne modifie pas les droits d'acces du compte.",
+        "asideTitle": "Securisez votre acces admin",
+        "description": "Creez un nouveau mot de passe pour votre compte admin."
+      },
+      "signIn": {
+        "asideDescription": "Connectez-vous avec un compte autorise pour gerer les utilisateurs, les roles et les indicateurs cles.",
+        "asideFootnote": "Les comptes sans role administrateur sont rediriges vers l'ecran d'acces restreint.",
+        "asideTitle": "Pilotez votre espace de travail",
+        "description": "Accedez a l'espace d'administration.",
+        "title": "Connexion admin"
+      }
+    },
+    "locked": {
+      "badge": "Acces restreint",
+      "description": "Vous etes connecte a votre compte, mais celui-ci ne dispose pas des droits d'administrateur necessaires pour ouvrir cet espace de travail.",
+      "retry": "Verifier a nouveau l'acces",
+      "title": "Vous n'avez pas acces a cette application.",
+      "verifying": "Verification de l'acces..."
+    },
+    "messages": {
+      "roleCreated": "Role cree.",
+      "roleCreateFailed": "Impossible de creer le role",
+      "roleDeleted": "Role supprime.",
+      "roleDeleteFailed": "Impossible de supprimer le role",
+      "rolesLoadFailed": "Impossible de charger les roles",
+      "roleUpdated": "Role modifie.",
+      "roleUpdateFailed": "Impossible de modifier le role",
+      "statsLoadFailed": "Impossible de charger les statistiques",
+      "userCreated": "Utilisateur cree.",
+      "userCreateFailed": "Impossible de creer l'utilisateur",
+      "userDeleted": "Utilisateur supprime.",
+      "userDeleteFailed": "Impossible de supprimer l'utilisateur",
+      "usersExported": "Export CSV genere.",
+      "usersExportFailed": "Impossible d'exporter les utilisateurs",
+      "usersImported": "Import CSV termine.",
+      "usersImportFailed": "Impossible d'importer les utilisateurs",
+      "usersLoadFailed": "Impossible de charger les utilisateurs",
+      "userUpdated": "Utilisateur modifie.",
+      "userUpdateFailed": "Impossible de modifier l'utilisateur"
+    },
+    "navigation": {
+      "general": {
+        "dashboard": "Dashboard",
+        "description": "Gestion des ressources",
+        "label": "General",
+        "roles": "Roles",
+        "users": "Utilisateurs"
+      }
+    },
+    "roles": {
+      "add": "Ajouter un role",
+      "delete": {
+        "action": "Supprimer le role",
+        "message": "Voulez-vous supprimer le role \"{{name}}\" ?",
+        "title": "Supprimer le role"
+      },
+      "description": "Gerez les roles disponibles pour les utilisateurs.",
+      "dialog": {
+        "createTitle": "Creer un role",
+        "editTitle": "Modifier le role"
+      },
+      "edit": "Modifier le role",
+      "empty": "Aucun role trouve.",
+      "list": "Liste des roles",
+      "loading": "Chargement des roles",
+      "searchPlaceholder": "Nom du role",
+      "title": "Roles"
+    },
+    "routes": {
+      "auth": "Authentification",
+      "forgotPassword": "Mot de passe oublie",
+      "forgotPasswordSent": "Lien envoye",
+      "locked": "Acces restreint",
+      "resetPassword": "Reinitialiser le mot de passe",
+      "roles": "Roles",
+      "signIn": "Connexion",
+      "stats": "Stats",
+      "users": "Utilisateurs"
+    },
+    "stats": {
+      "description": "Consultez les statistiques principales de l'administration.",
+      "empty": "Aucune statistique trouvee.",
+      "loading": "Chargement des statistiques",
+      "title": "Tableau de bord admin"
+    },
+    "users": {
+      "add": "Ajouter un utilisateur",
+      "avatarAlt": "Photo de profil de {{name}}",
+      "delete": {
+        "action": "Supprimer l'utilisateur",
+        "message": "Voulez-vous supprimer l'utilisateur \"{{name}}\" ?",
+        "title": "Supprimer l'utilisateur"
+      },
+      "description": "Gerez les comptes, les roles et les imports CSV.",
+      "dialog": {
+        "createTitle": "Creer un utilisateur",
+        "editTitle": "Modifier l'utilisateur"
+      },
+      "edit": "Modifier l'utilisateur",
+      "empty": "Aucun utilisateur trouve.",
+      "exportCsv": "Export CSV",
+      "importCsv": "Import CSV",
+      "list": "Liste des utilisateurs",
+      "loading": "Chargement des utilisateurs",
+      "title": "Utilisateurs",
+      "validation": {
+        "roleRequired": "Selectionnez au moins un role."
+      }
+    }
+  },
+  "auth": {
+    "forgotPassword": {
+      "asideDescription": "Recevez un lien securise pour reprendre la main sur votre compte et continuer votre travail.",
+      "asideFootnote": "Le parcours reste clair, direct et coherent avec le reste de l'experience d'authentification.",
+      "asideTitle": "Recuperez votre acces",
+      "description": "Remplissez le formulaire pour reinitialiser votre mot de passe.",
+      "loading": "Envoi en cours...",
+      "remembered": "Mot de passe retrouve ?",
+      "submit": "Envoyer le lien",
+      "title": "Mot de passe oublie"
+    },
+    "forgotPasswordSent": {
+      "alreadyReset": "Vous avez deja reinitialise votre mot de passe ?",
+      "asideDescription": "Ouvrez le lien envoye a votre adresse e-mail avant son expiration pour definir un nouveau mot de passe.",
+      "asideFootnote": "Cette etape confirme l'envoi sans exposer l'existence ou non d'un compte associe a l'adresse.",
+      "asideTitle": "Verifiez votre boite mail",
+      "backSignIn": "Retour a la connexion",
+      "description": "Si cette adresse e-mail est associee a un compte, un lien de reinitialisation vient d'etre envoye. Le lien expire dans 15 minutes.",
+      "title": "Lien envoye"
+    },
+    "resetPassword": {
+      "asideDescription": "Choisissez un nouveau mot de passe et finalisez la recuperation dans une interface familiere.",
+      "asideFootnote": "Les etats d'erreur et les actions principales restent visibles sans changer de logique metier.",
+      "asideTitle": "Securisez votre compte",
+      "description": "Creez un nouveau mot de passe pour votre compte.",
+      "invalidToken": "Le lien de reinitialisation est invalide ou incomplet. Demandez un nouveau lien pour continuer.",
+      "loading": "Reinitialisation...",
+      "requestNewLink": "Demander un nouveau lien",
+      "submit": "Reinitialiser le mot de passe",
+      "title": "Reinitialiser le mot de passe"
+    },
+    "signIn": {
+      "asideDescription": "Connectez-vous a une base applicative claire, modulaire et prete a evoluer avec vos fonctionnalites.",
+      "asideFootnote": "Gardez un parcours d'authentification coherent pendant que vous construisez le reste de votre produit.",
+      "asideTitle": "Retrouvez votre espace de travail",
+      "continueWith": "Ou continuer avec",
+      "forgotPassword": "Mot de passe oublie ?",
+      "loading": "Connexion en cours...",
+      "noAccount": "Vous n'avez pas de compte ?",
+      "title": "Connexion"
+    },
+    "signUp": {
+      "asideDescription": "Demarrez depuis une base propre, modulaire et prete a accueillir vos fonctionnalites sans repartir de zero.",
+      "asideFootnote": "Structurez votre application avec des parcours d'authentification deja alignes sur votre interface.",
+      "asideTitle": "Creez votre espace de travail",
+      "hasAccount": "Vous avez deja un compte ?",
+      "loading": "Creation du compte...",
+      "submit": "Creer mon compte",
+      "title": "Inscription"
+    }
+  },
+  "common": {
+    "active": "Actif",
+    "actions": "Actions",
+    "appearance": "Apparence",
+    "backHome": "Retour a l'accueil",
+    "cancel": "Annuler",
+    "close": "Fermer",
+    "create": "Creer",
+    "createAccount": "Creer un compte",
+    "dashboard": "Tableau de bord",
+    "delete": "Supprimer",
+    "greeting": "Bonjour, {{name}}",
+    "loading": "Chargement...",
+    "loadingInProgress": "En cours de chargement",
+    "openDashboard": "Ouvrir le tableau de bord",
+    "save": "Enregistrer",
+    "saving": "Enregistrement...",
+    "signIn": "Se connecter",
+    "signOut": "Se deconnecter",
+    "signUp": "S'inscrire",
+    "signingOut": "Deconnexion...",
+    "startNow": "Demarrer maintenant"
+  },
+  "form": {
+    "confirmPassword": "Confirmation du mot de passe",
+    "email": "Adresse e-mail",
+    "emailShort": "Email",
+    "name": "Nom",
+    "newPassword": "Nouveau mot de passe",
+    "password": "Mot de passe"
+  },
+  "landing": {
+    "cta": {
+      "description": "Gardez cette page comme point d'entree propre, puis remplacez les sections au rythme de votre produit.",
+      "title": "Pret a construire la suite ?"
+    },
+    "features": {
+      "appFlow": {
+        "description": "Pages publiques, authentification et tableau de bord suivent une structure claire des le depart.",
+        "title": "Parcours applicatif coherent"
+      },
+      "architecture": {
+        "description": "Les pages composent des sections UI, pendant que les services et stores restent dans data-access.",
+        "title": "Architecture lisible"
+      },
+      "description": "Le pulse donne juste ce qu'il faut pour avancer vite sans imposer une experience produit trop specifique.",
+      "theming": {
+        "description": "Angular Material, Tailwind et le changement de theme sont deja combines dans une base simple.",
+        "title": "Interface sobre et themable"
+      },
+      "title": "Une base volontairement simple."
+    },
+    "footer": {
+      "copyright": "© {{year}} pulse. Tous droits reserves.",
+      "description": "Une base Angular simple pour lancer un produit avec authentification, tableau de bord et interface themable."
+    },
+    "hero": {
+      "badge": "Base Angular prete pour vos prochains produits",
+      "description": "Un pulse simple avec authentification, tableau de bord, thematisation et fondations Angular modernes pour construire sans repartir de zero.",
+      "title": "Demarrez avec une application claire, structuree et prete a evoluer."
+    },
+    "preview": {
+      "authFlows": "Flux d'authentification",
+      "modules": "Modules",
+      "readyFlowDescription": "Authentification, profil et navigation sont deja alignes.",
+      "readyFlowTitle": "Parcours pret a brancher",
+      "themes": "Themes"
+    }
+  },
+  "language": {
+    "en": "Anglais",
+    "fr": "Francais",
+    "switch": "Changer de langue"
+  },
+  "messages": {
+    "authFailed": "Authentification echouee",
+    "avatarUpdated": "Photo de profil mise a jour.",
+    "avatarUpdateFailed": "Impossible de mettre a jour la photo de profil",
+    "passwordResetFailed": "Impossible de reinitialiser le mot de passe",
+    "passwordResetSuccess": "Votre mot de passe a ete reinitialise. Vous pouvez vous connecter.",
+    "passwordUpdated": "Mot de passe mis a jour.",
+    "passwordUpdateFailed": "Impossible de mettre a jour le mot de passe",
+    "profileUpdated": "Informations du compte mises a jour.",
+    "profileUpdateFailed": "Impossible de mettre a jour les informations du compte",
+    "resetLinkFailed": "Impossible d'envoyer le lien de reinitialisation",
+    "signOutFailed": "Deconnexion echouee"
+  },
+  "navigation": {
+    "account": {
+      "description": "Gestion du compte",
+      "info": "Mon compte",
+      "label": "Mon compte",
+      "security": "Mot de passe"
+    }
+  },
+  "profile": {
+    "account": {
+      "avatarAlt": "Photo de profil",
+      "avatarHint": "JPG, PNG, WebP ou GIF. 2 Mo maximum.",
+      "avatarSizeError": "La photo de profil ne doit pas depasser 2 Mo.",
+      "avatarTitle": "Photo de profil",
+      "avatarTypeError": "Format non pris en charge. Utilisez JPG, PNG, WebP ou GIF.",
+      "changeAvatar": "Changer la photo",
+      "description": "Mettez a jour la photo, le nom et l'adresse e-mail associes a votre compte.",
+      "title": "Informations du compte"
+    },
+    "description": "Gerez les informations de votre compte et votre mot de passe.",
+    "security": {
+      "description": "Choisissez un nouveau mot de passe, puis confirmez-le avant d'enregistrer.",
+      "title": "Changer le mot de passe"
+    },
+    "tabs": {
+      "account": "Compte",
+      "security": "Securite"
+    },
+    "title": "Parametres du profil"
+  },
+  "routes": {
+    "account": "Compte",
+    "auth": "Authentification",
+    "forgotPassword": "Mot de passe oublie",
+    "forgotPasswordSent": "Lien envoye",
+    "home": "Accueil",
+    "profile": "Profil",
+    "resetPassword": "Reinitialiser le mot de passe",
+    "security": "Securite",
+    "signIn": "Connexion",
+    "signUp": "Inscription"
+  },
+  "theme": {
+    "dark": "Sombre",
+    "light": "Clair",
+    "system": "Systeme"
+  },
+  "validation": {
+    "confirmPasswordRequired": "Vous devez confirmer votre mot de passe",
+    "emailInvalid": "Vous devez saisir une adresse e-mail valide",
+    "emailRequired": "Vous devez saisir une adresse e-mail",
+    "nameRequired": "Vous devez saisir votre nom",
+    "passwordMinLength": "Le mot de passe doit contenir au moins 6 caracteres",
+    "passwordMismatch": "Les mots de passe ne correspondent pas",
+    "passwordRequired": "Vous devez saisir un mot de passe"
+  }
+}

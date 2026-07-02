@@ -1,0 +1,32 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "bundler",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "module": "preserve",
+    "lib": ["es2020", "dom"],
+    "target": "ES2022",
+    "useDefineForClassFields": false,
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "paths": {
+      "@admin/app/*": ["./apps/admin/src/app/*"],
+      "@website/app/*": ["./apps/website/src/app/*"],
+      "@libs/core": ["./libs/core/src/index.ts"],
+      "@libs/ui": ["./libs/ui/src/index.ts"],
+      "@libs/utils": ["./libs/utils/src/index.ts"]
+    }
+  },
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true
+  },
+  "exclude": ["node_modules", "tmp"]
+}

@@ -1,0 +1,35 @@
+<header
+  class="sticky top-0 z-20 border-b border-neutral-200/80 bg-white/90 backdrop-blur dark:border-neutral-800 dark:bg-neutral-950/90">
+  <div class="mx-auto flex h-16 w-full max-w-7xl items-center px-4 sm:px-6 lg:px-8">
+    <div class="flex-auto">
+      <a class="flex items-center gap-2.5" routerLink="/">
+        <span class="flex size-9 items-center justify-center rounded bg-primary-600 text-white shadow-sm">
+          <mat-icon class="size-5" svgIcon="blocks" />
+        </span>
+        <span class="text-lg font-bold text-neutral-950 dark:text-white">pulse</span>
+      </a>
+    </div>
+
+    <div class="flex items-center gap-2">
+      <ui-language-switcher />
+      <ui-scheme-switcher
+        [labels]="{
+          light: ('theme.light' | transloco),
+          dark: ('theme.dark' | transloco),
+          system: ('theme.system' | transloco)
+        }" />
+
+      @if (userName(); as name) {
+      <span class="hidden max-w-40 truncate text-sm font-medium text-neutral-600 sm:block dark:text-neutral-300">
+        {{ 'common.greeting' | transloco: { name } }}
+      </span>
+      <a matButton="outlined" routerLink="/dashboard">{{ 'common.dashboard' | transloco }}</a>
+      <button matButton="filled" type="button" [disabled]="isLoading()" (click)="signOut.emit()">
+        {{ (isLoading() ? 'common.signingOut' : 'common.signOut') | transloco }}
+      </button>
+      } @else {
+      <a matButton="outlined" routerLink="/auth/sign-in">{{ 'common.signIn' | transloco }}</a>
+      }
+    </div>
+  </div>
+</header>

@@ -1,0 +1,48 @@
+<form class="grid grid-cols-1 gap-5" (submit)="save($event)">
+  <div class="col-span-full">
+    <div class="text-lg font-semibold">{{ 'profile.security.title' | transloco }}</div>
+    <div class="mt-1 text-sm text-neutral-500 dark:text-neutral-400">
+      {{ 'profile.security.description' | transloco }}
+    </div>
+  </div>
+
+  <mat-form-field class="w-full">
+    <mat-label>{{ 'form.newPassword' | transloco }}</mat-label>
+    <input type="password" matInput [formField]="securityForm.password" />
+    <mat-icon svgIcon="lock-keyhole" matPrefix></mat-icon>
+    @if ((securityForm.password().touched() || securityForm.password().dirty()) && securityForm.password().errors()[0]; as
+    error) {
+    <mat-error>{{ error.message | transloco }}</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field class="w-full">
+    <mat-label>{{ 'form.confirmPassword' | transloco }}</mat-label>
+    <input type="password" matInput [formField]="securityForm.confirmPassword" />
+    <mat-icon svgIcon="lock-keyhole" matPrefix></mat-icon>
+    @if ((securityForm.confirmPassword().touched() || securityForm.confirmPassword().dirty()) &&
+    securityForm.confirmPassword().errors()[0]; as error) {
+    <mat-error>{{ error.message | transloco }}</mat-error>
+    }
+  </mat-form-field>
+
+  @if (authStore.success(); as message) {
+  <div
+    class="col-span-full rounded border border-green-200 bg-green-50 px-3 py-2 text-sm text-green-700 dark:border-green-900/70 dark:bg-green-950/40 dark:text-green-300">
+    {{ message }}
+  </div>
+  } @if (authStore.error(); as error) {
+  <div
+    class="col-span-full rounded border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700 dark:border-red-900/70 dark:bg-red-950/40 dark:text-red-300">
+    {{ error }}
+  </div>
+  }
+
+  <mat-divider class="col-span-full my-2" />
+
+  <div class="col-span-full flex justify-end">
+    <button matButton="filled" [disabled]="securityForm().invalid() || authStore.isLoading()">
+      {{ (authStore.isLoading() ? 'common.saving' : 'common.save') | transloco }}
+    </button>
+  </div>
+</form>

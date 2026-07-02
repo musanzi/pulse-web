@@ -1,0 +1,319 @@
+{
+  "admin": {
+    "auth": {
+      "backSignIn": "Back to sign in",
+      "forgotPassword": {
+        "asideDescription": "Receive a secure link to set a new password and return to administration.",
+        "asideFootnote": "The form never publicly confirms whether an account exists for the address.",
+        "description": "Request a reset link for your administrator account."
+      },
+      "forgotPasswordSent": {
+        "asideFootnote": "Sign in remains limited to accounts with the administrator role."
+      },
+      "resetPassword": {
+        "asideDescription": "Choose a new password before returning to your admin workspace.",
+        "asideFootnote": "Changing the password does not change the account's access rights.",
+        "asideTitle": "Secure your admin access",
+        "description": "Create a new password for your admin account."
+      },
+      "signIn": {
+        "asideDescription": "Sign in with an authorized account to manage users, roles, and key metrics.",
+        "asideFootnote": "Accounts without the administrator role are redirected to the restricted access screen.",
+        "asideTitle": "Run your workspace",
+        "description": "Access the administration area.",
+        "title": "Sign in"
+      }
+    },
+    "locked": {
+      "badge": "Restricted access",
+      "description": "You are signed in, but this account does not have the administrator rights required to open this workspace.",
+      "retry": "Check access again",
+      "title": "You do not have access to this application.",
+      "verifying": "Checking access..."
+    },
+    "messages": {
+      "roleCreated": "Role created.",
+      "roleCreateFailed": "Unable to create the role",
+      "roleDeleted": "Role deleted.",
+      "roleDeleteFailed": "Unable to delete the role",
+      "rolesLoadFailed": "Unable to load roles",
+      "roleUpdated": "Role updated.",
+      "roleUpdateFailed": "Unable to update the role",
+      "statsLoadFailed": "Unable to load statistics",
+      "userCreated": "User created.",
+      "userCreateFailed": "Unable to create the user",
+      "userDeleted": "User deleted.",
+      "userDeleteFailed": "Unable to delete the user",
+      "usersExported": "CSV export generated.",
+      "usersExportFailed": "Unable to export users",
+      "usersImported": "CSV import completed.",
+      "usersImportFailed": "Unable to import users",
+      "usersLoadFailed": "Unable to load users",
+      "userUpdated": "User updated.",
+      "userUpdateFailed": "Unable to update the user"
+    },
+    "navigation": {
+      "general": {
+        "dashboard": "Dashboard",
+        "description": "Resource management",
+        "label": "General",
+        "roles": "Roles",
+        "users": "Users"
+      }
+    },
+    "roles": {
+      "add": "Add role",
+      "delete": {
+        "action": "Delete role",
+        "message": "Do you want to delete the role \"{{name}}\"?",
+        "title": "Delete role"
+      },
+      "description": "Manage the roles available to users.",
+      "dialog": {
+        "createTitle": "Create role",
+        "editTitle": "Edit role"
+      },
+      "edit": "Edit role",
+      "empty": "No roles found.",
+      "list": "Role list",
+      "loading": "Loading roles",
+      "searchPlaceholder": "Role name",
+      "title": "Roles"
+    },
+    "routes": {
+      "auth": "Authentication",
+      "forgotPassword": "Forgot password",
+      "forgotPasswordSent": "Link sent",
+      "locked": "Restricted access",
+      "resetPassword": "Reset password",
+      "roles": "Roles",
+      "signIn": "Sign in",
+      "stats": "Stats",
+      "users": "Users"
+    },
+    "stats": {
+      "description": "Review the main administration statistics.",
+      "empty": "No statistics found.",
+      "loading": "Loading statistics",
+      "title": "Admin dashboard"
+    },
+    "users": {
+      "add": "Add user",
+      "avatarAlt": "{{name}} profile photo",
+      "delete": {
+        "action": "Delete user",
+        "message": "Do you want to delete the user \"{{name}}\"?",
+        "title": "Delete user"
+      },
+      "description": "Manage accounts, roles, and CSV imports.",
+      "dialog": {
+        "createTitle": "Create user",
+        "editTitle": "Edit user"
+      },
+      "edit": "Edit user",
+      "empty": "No users found.",
+      "exportCsv": "Export CSV",
+      "importCsv": "Import CSV",
+      "list": "User list",
+      "loading": "Loading users",
+      "title": "Users",
+      "validation": {
+        "roleRequired": "Select at least one role."
+      }
+    }
+  },
+  "auth": {
+    "forgotPassword": {
+      "asideDescription": "Receive a secure link to regain access to your account and continue your work.",
+      "asideFootnote": "The flow stays clear, direct, and consistent with the rest of the authentication experience.",
+      "asideTitle": "Recover your access",
+      "description": "Fill out the form to reset your password.",
+      "loading": "Sending...",
+      "remembered": "Remembered your password?",
+      "submit": "Send link",
+      "title": "Forgot password"
+    },
+    "forgotPasswordSent": {
+      "alreadyReset": "Already reset your password?",
+      "asideDescription": "Open the link sent to your email address before it expires to set a new password.",
+      "asideFootnote": "This step confirms delivery without exposing whether an account exists for the address.",
+      "asideTitle": "Check your inbox",
+      "backSignIn": "Back to sign in",
+      "description": "If this email address is associated with an account, a reset link has been sent. The link expires in 15 minutes.",
+      "title": "Link sent"
+    },
+    "resetPassword": {
+      "asideDescription": "Choose a new password and finish recovery in a familiar interface.",
+      "asideFootnote": "Error states and primary actions stay visible without changing business logic.",
+      "asideTitle": "Secure your account",
+      "description": "Create a new password for your account.",
+      "invalidToken": "The reset link is invalid or incomplete. Request a new link to continue.",
+      "loading": "Resetting...",
+      "requestNewLink": "Request a new link",
+      "submit": "Reset password",
+      "title": "Reset password"
+    },
+    "signIn": {
+      "asideDescription": "Sign in to a clear, modular application base that is ready to grow with your features.",
+      "asideFootnote": "Keep a consistent authentication flow while you build the rest of your product.",
+      "asideTitle": "Return to your workspace",
+      "continueWith": "Or continue with",
+      "forgotPassword": "Forgot password?",
+      "loading": "Signing in...",
+      "noAccount": "Do not have an account?",
+      "title": "Sign in"
+    },
+    "signUp": {
+      "asideDescription": "Start from a clean, modular base that is ready for your features without starting from scratch.",
+      "asideFootnote": "Structure your application with authentication flows already aligned to your interface.",
+      "asideTitle": "Create your workspace",
+      "hasAccount": "Already have an account?",
+      "loading": "Creating account...",
+      "submit": "Create my account",
+      "title": "Sign up"
+    }
+  },
+  "common": {
+    "active": "Active",
+    "actions": "Actions",
+    "appearance": "Appearance",
+    "backHome": "Back home",
+    "cancel": "Cancel",
+    "close": "Close",
+    "create": "Create",
+    "createAccount": "Create account",
+    "dashboard": "Dashboard",
+    "delete": "Delete",
+    "greeting": "Hello, {{name}}",
+    "loading": "Loading...",
+    "loadingInProgress": "Loading",
+    "openDashboard": "Open dashboard",
+    "save": "Save",
+    "saving": "Saving...",
+    "signIn": "Sign in",
+    "signOut": "Sign out",
+    "signUp": "Sign up",
+    "signingOut": "Signing out...",
+    "startNow": "Start now"
+  },
+  "form": {
+    "confirmPassword": "Confirm password",
+    "email": "Email address",
+    "emailShort": "Email",
+    "name": "Name",
+    "newPassword": "New password",
+    "password": "Password"
+  },
+  "landing": {
+    "cta": {
+      "description": "Keep this page as a clean entry point, then replace sections at your product's pace.",
+      "title": "Ready to build what comes next?"
+    },
+    "features": {
+      "appFlow": {
+        "description": "Public pages, authentication, and dashboard follow a clear structure from the start.",
+        "title": "Consistent application flow"
+      },
+      "architecture": {
+        "description": "Pages compose UI sections while services and stores stay in data-access.",
+        "title": "Readable architecture"
+      },
+      "description": "The pulse gives you just enough to move fast without imposing an overly specific product experience.",
+      "theming": {
+        "description": "Angular Material, Tailwind, and theme switching are already combined in a simple base.",
+        "title": "Clean, themeable interface"
+      },
+      "title": "A deliberately simple base."
+    },
+    "footer": {
+      "copyright": "© {{year}} pulse. All rights reserved.",
+      "description": "A simple Angular base for launching a product with authentication, a dashboard, and a themeable interface."
+    },
+    "hero": {
+      "badge": "Angular base ready for your next products",
+      "description": "A simple pulse with authentication, dashboard, theming, and modern Angular foundations so you can build without starting from zero.",
+      "title": "Start with a clear, structured application ready to scale."
+    },
+    "preview": {
+      "authFlows": "Authentication flows",
+      "modules": "Modules",
+      "readyFlowDescription": "Authentication, profile, and navigation are already aligned.",
+      "readyFlowTitle": "Ready-to-connect flow",
+      "themes": "Themes"
+    }
+  },
+  "language": {
+    "en": "English",
+    "fr": "French",
+    "switch": "Switch language"
+  },
+  "messages": {
+    "authFailed": "Authentication failed",
+    "avatarUpdated": "Profile photo updated.",
+    "avatarUpdateFailed": "Unable to update profile photo",
+    "passwordResetFailed": "Unable to reset password",
+    "passwordResetSuccess": "Your password has been reset. You can sign in.",
+    "passwordUpdated": "Password updated.",
+    "passwordUpdateFailed": "Unable to update password",
+    "profileUpdated": "Account information updated.",
+    "profileUpdateFailed": "Unable to update account information",
+    "resetLinkFailed": "Unable to send the reset link",
+    "signOutFailed": "Sign out failed"
+  },
+  "navigation": {
+    "account": {
+      "description": "Account management",
+      "info": "My account",
+      "label": "My account",
+      "security": "Password"
+    }
+  },
+  "profile": {
+    "account": {
+      "avatarAlt": "Profile photo",
+      "avatarHint": "JPG, PNG, WebP, or GIF. 2 MB maximum.",
+      "avatarSizeError": "The profile photo must not exceed 2 MB.",
+      "avatarTitle": "Profile photo",
+      "avatarTypeError": "Unsupported format. Use JPG, PNG, WebP, or GIF.",
+      "changeAvatar": "Change photo",
+      "description": "Update the photo, name, and email address associated with your account.",
+      "title": "Account information"
+    },
+    "description": "Manage your account information and password.",
+    "security": {
+      "description": "Choose a new password, then confirm it before saving.",
+      "title": "Change password"
+    },
+    "tabs": {
+      "account": "Account",
+      "security": "Security"
+    },
+    "title": "Profile settings"
+  },
+  "routes": {
+    "account": "Account",
+    "auth": "Authentication",
+    "forgotPassword": "Forgot password",
+    "forgotPasswordSent": "Link sent",
+    "home": "Home",
+    "profile": "Profile",
+    "resetPassword": "Reset password",
+    "security": "Security",
+    "signIn": "Sign in",
+    "signUp": "Sign up"
+  },
+  "theme": {
+    "dark": "Dark",
+    "light": "Light",
+    "system": "System"
+  },
+  "validation": {
+    "confirmPasswordRequired": "You must confirm your password",
+    "emailInvalid": "You must enter a valid email address",
+    "emailRequired": "You must enter an email address",
+    "nameRequired": "You must enter your name",
+    "passwordMinLength": "The password must contain at least 6 characters",
+    "passwordMismatch": "Passwords do not match",
+    "passwordRequired": "You must enter a password"
+  }
+}

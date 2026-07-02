@@ -1,0 +1,11 @@
+<div class="min-h-screen bg-white text-neutral-950 dark:bg-neutral-950 dark:text-white">
+  <landing-header
+    [userName]="authStore.user()?.name ?? null"
+    [isLoading]="authStore.isLoading()"
+    (signOut)="signOut()" />
+
+  <landing-hero [isAuthenticated]="!!authStore.user()" [isLoading]="authStore.isLoading()" (signOut)="signOut()" />
+  <landing-features />
+  <landing-cta [isAuthenticated]="!!authStore.user()" />
+  <landing-footer />
+</div>
