@@ -1,0 +1,133 @@
+<mat-accordion class="block space-y-3">
+  @for (gap of gaps(); track gap.skillId) {
+    <mat-expansion-panel
+      class="border border-neutral-200 bg-white shadow-none dark:border-neutral-800 dark:bg-neutral-900"
+      (opened)="skillOpened.emit(gap.skillId)">
+      <mat-expansion-panel-header class="px-4">
+        <mat-panel-title class="min-w-0">
+          <div class="flex min-w-0 items-center gap-3">
+            <div
+              class="flex size-10 shrink-0 items-center justify-center rounded-lg bg-primary-50 text-primary-700 dark:bg-primary-950/50 dark:text-primary-300">
+              <mat-icon class="size-5" [svgIcon]="gap.icon"></mat-icon>
+            </div>
+
+            <div class="min-w-0">
+              <div class="truncate text-md font-semibold text-neutral-950 dark:text-white">{{ gap.skillName }}</div>
+              <div class="mt-1 text-sm text-neutral-500 dark:text-neutral-400">
+                {{ 'skillsGap.levelProgress' | transloco: { current: gap.currentLevel, target: gap.targetLevel } }}
+              </div>
+            </div>
+          </div>
+        </mat-panel-title>
+
+        <mat-panel-description class="hidden items-center justify-end gap-2 sm:flex">
+          @if (gap.shortestPathMinutes) {
+            <span
+              class="rounded-md bg-amber-50 px-2 py-1 text-xs font-semibold text-amber-700 dark:bg-amber-950/40 dark:text-amber-300">
+              {{ 'skillsGap.shortestPath' | transloco: { minutes: gap.shortestPathMinutes } }}
+            </span>
+          }
+
+          <span class="font-mono text-sm font-semibold text-primary-600 dark:text-primary-400">
+            +{{ gap.estimatedMatchLift }}%
+          </span>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <div class="grid gap-4 px-4 pb-4 lg:grid-cols-[18rem_1fr]">
+        <section class="rounded-lg border border-neutral-200 bg-neutral-50 p-4 dark:border-neutral-800 dark:bg-neutral-950">
+          <div class="text-sm font-semibold text-neutral-900 dark:text-white">
+            {{ 'skillsGap.levelComparison' | transloco }}
+          </div>
+
+          <div class="mt-4 space-y-4">
+            <div>
+              <div class="mb-2 flex items-center justify-between text-sm">
+                <span class="text-neutral-500 dark:text-neutral-400">{{ 'skillsGap.current' | transloco }}</span>
+                <span class="font-mono font-semibold">{{ gap.currentLevel }}/{{ gap.maxLevel }}</span>
+              </div>
+              <mat-progress-bar mode="determinate" [value]="(gap.currentLevel / gap.maxLevel) * 100"></mat-progress-bar>
+            </div>
+
+            <div>
+              <div class="mb-2 flex items-center justify-between text-sm">
+                <span class="text-neutral-500 dark:text-neutral-400">{{ 'skillsGap.target' | transloco }}</span>
+                <span class="font-mono font-semibold">{{ gap.targetLevel }}/{{ gap.maxLevel }}</span>
+              </div>
+              <mat-progress-bar mode="determinate" [value]="(gap.targetLevel / gap.maxLevel) * 100"></mat-progress-bar>
+            </div>
+          </div>
+
+          <div class="mt-4 rounded-md bg-white p-3 text-sm dark:bg-neutral-900">
+            <div class="font-semibold text-neutral-950 dark:text-white">
+              {{ 'skillsGap.growthHintTitle' | transloco }}
+            </div>
+            <p class="mt-1 text-neutral-500 dark:text-neutral-400">
+              {{ gap.growthHintKey | transloco }}
+            </p>
+          </div>
+        </section>
+
+        <section>
+          <div class="mb-3 flex items-center justify-between gap-3">
+            <div>
+              <div class="text-sm font-semibold text-neutral-900 dark:text-white">
+                {{ 'skillsGap.recommendedQuests' | transloco }}
+              </div>
+              <div class="mt-1 text-sm text-neutral-500 dark:text-neutral-400">
+                {{ 'skillsGap.questHelpText' | transloco }}
+              </div>
+            </div>
+          </div>
+
+          <div class="grid gap-3 md:grid-cols-2">
+            @for (quest of questsBySkill()[gap.skillId] ?? []; track quest.id) {
+              <article
+                class="rounded-lg border border-neutral-200 bg-white p-4 transition hover:border-primary-300 hover:bg-primary-50/40 dark:border-neutral-800 dark:bg-neutral-900 dark:hover:border-primary-800 dark:hover:bg-primary-950/20">
+                <div class="flex items-start justify-between gap-3">
+                  <div class="min-w-0">
+                    <div class="truncate text-md font-semibold text-neutral-950 dark:text-white">{{ quest.title }}</div>
+                    <p class="mt-1 line-clamp-2 text-sm text-neutral-500 dark:text-neutral-400">
+                      {{ quest.summary }}
+                    </p>
+                  </div>
+
+                  @if (quest.isShortestPath) {
+                    <span
+                      class="shrink-0 rounded-md bg-amber-50 px-2 py-1 text-xs font-semibold text-amber-700 dark:bg-amber-950/40 dark:text-amber-300">
+                      {{ 'skillsGap.shortest' | transloco }}
+                    </span>
+                  }
+                </div>
+
+                <div class="mt-4 flex flex-wrap gap-2">
+                  <span class="rounded-md bg-neutral-100 px-2 py-1 text-xs font-semibold dark:bg-neutral-800">
+                    {{ quest.estimatedMinutes }} min
+                  </span>
+                  <span class="rounded-md bg-primary-50 px-2 py-1 text-xs font-semibold text-primary-700 dark:bg-primary-950/40 dark:text-primary-300">
+                    +{{ quest.xpReward }} XP
+                  </span>
+                  <span class="rounded-md bg-green-50 px-2 py-1 text-xs font-semibold text-green-700 dark:bg-green-950/40 dark:text-green-300">
+                    +{{ quest.estimatedMatchLift }}%
+                  </span>
+                </div>
+
+                <div class="mt-4 flex justify-end">
+                  <button matButton="filled" type="button" (click)="questSelected.emit(quest.id)">
+                    <mat-icon svgIcon="play"></mat-icon>
+                    {{ 'skillsGap.startQuest' | transloco }}
+                  </button>
+                </div>
+              </article>
+            } @empty {
+              <div
+                class="rounded-lg border border-dashed border-neutral-300 p-4 text-sm text-neutral-500 dark:border-neutral-700 dark:text-neutral-400 md:col-span-2">
+                {{ 'skillsGap.loadingQuests' | transloco }}
+              </div>
+            }
+          </div>
+        </section>
+      </div>
+    </mat-expansion-panel>
+  }
+</mat-accordion>

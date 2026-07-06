@@ -196,6 +196,19 @@
     "signingOut": "Signing out...",
     "startNow": "Start now"
   },
+  "applications": {
+    "match": {
+      "aiReviewed": "AI review ready",
+      "browseQuests": "Browse quests",
+      "overlapTitle": "Matched skills",
+      "scoreLabel": "Match",
+      "viewSkillPlan": "View skill plan"
+    },
+    "rationale": {
+      "description": "Review the evidence behind this recommendation.",
+      "title": "Why this match?"
+    }
+  },
   "form": {
     "confirmPassword": "Confirm password",
     "email": "Email address",
@@ -289,6 +302,19 @@
       "security": "Security"
     },
     "title": "Profile settings"
+  },
+  "skillsGap": {
+    "current": "Current",
+    "growthHintTitle": "Growth path",
+    "levelComparison": "Current vs target",
+    "levelProgress": "Current {{current}} / target {{target}}",
+    "loadingQuests": "Open this skill to load recommended quests.",
+    "questHelpText": "Start with the quest that creates the fastest measurable lift.",
+    "recommendedQuests": "Recommended quests",
+    "shortest": "Shortest path",
+    "shortestPath": "{{minutes}} min shortest path",
+    "startQuest": "Start quest",
+    "target": "Target"
   },
   "routes": {
     "account": "Account",

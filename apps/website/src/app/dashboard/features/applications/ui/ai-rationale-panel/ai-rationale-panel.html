@@ -1,0 +1,36 @@
+<mat-accordion class="block" multi>
+  <mat-expansion-panel class="border border-neutral-200 bg-white shadow-none dark:border-neutral-800 dark:bg-neutral-900">
+    <mat-expansion-panel-header class="px-4">
+      <mat-panel-title class="flex items-center gap-2 text-md font-semibold">
+        <mat-icon class="size-4 text-primary-600 dark:text-primary-400" svgIcon="brain-circuit"></mat-icon>
+        {{ 'applications.rationale.title' | transloco }}
+      </mat-panel-title>
+
+      <mat-panel-description class="hidden text-sm text-neutral-500 dark:text-neutral-400 sm:block">
+        {{ 'applications.rationale.description' | transloco }}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <div class="grid gap-3 px-4 pb-4 md:grid-cols-3">
+      @for (reason of insight().rationales; track reason.id) {
+        <article class="rounded-lg border border-neutral-200 bg-neutral-50 p-3 dark:border-neutral-800 dark:bg-neutral-950">
+          <div class="flex items-center gap-2 text-sm font-semibold text-neutral-900 dark:text-white">
+            <mat-icon class="size-4 text-primary-600 dark:text-primary-400" [svgIcon]="reason.icon"></mat-icon>
+            {{ reason.titleKey | transloco }}
+          </div>
+
+          <p class="mt-2 text-sm text-neutral-500 dark:text-neutral-400">
+            {{ reason.descriptionKey | transloco }}
+          </p>
+
+          @if (reason.metricLabelKey && reason.metricValue) {
+            <div class="mt-3 flex items-center justify-between rounded-md bg-white px-2 py-1.5 text-sm dark:bg-neutral-900">
+              <span class="text-neutral-500 dark:text-neutral-400">{{ reason.metricLabelKey | transloco }}</span>
+              <span class="font-mono font-semibold text-neutral-950 dark:text-white">{{ reason.metricValue }}</span>
+            </div>
+          }
+        </article>
+      }
+    </div>
+  </mat-expansion-panel>
+</mat-accordion>
