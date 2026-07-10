@@ -17,6 +17,13 @@ export const NAVIGATION: INavigationItem[] = [
         label: 'navigation.account.security',
         icon: 'lock',
         route: '/dashboard/security'
+      },
+      {
+  
+        id: 'peer-reviews',
+        label: 'navigation.peerReviews',
+        icon: 'users',
+        route: '/dashboard/peer-reviews'
       }
     ]
   }

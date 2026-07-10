@@ -279,6 +279,16 @@
       "info": "My account",
       "label": "My account",
       "security": "Password"
+    },
+    "peerReviews": "Peer Reviews"
+  },
+  "peerReviews": {
+    "title": "Peer Reviews",
+    "description": "Review feedback from your peers and collaborate throughout your application journey.",
+    "empty": {
+      "title": "Peer Reviews",
+      "description": "You don't have any peer reviews yet. Once you request or receive feedback, it will appear here.",
+      "action": "Browse Applications"
     }
   },
   "profile": {
