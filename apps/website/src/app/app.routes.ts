@@ -6,7 +6,7 @@ export const routes: Route[] = [
     path: 'dashboard',
     canActivate: [authGuard],
     loadComponent: () => import('./dashboard/layout/layout').then((c) => c.DashboardLayout),
-    loadChildren: () => import('./dashboard/features/profile/profile.routes').then((r) => r.profileRoutes)
+    loadChildren: () => import('./dashboard/dashboard.routes').then((r) => r.dashboardRoutes)
   },
   {
     path: 'auth',

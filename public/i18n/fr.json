@@ -196,6 +196,19 @@
     "signingOut": "Deconnexion...",
     "startNow": "Demarrer maintenant"
   },
+  "applications": {
+    "match": {
+      "aiReviewed": "Analyse IA prete",
+      "browseQuests": "Explorer les quetes",
+      "overlapTitle": "Competences alignees",
+      "scoreLabel": "Compatibilite",
+      "viewSkillPlan": "Voir le plan de competences"
+    },
+    "rationale": {
+      "description": "Consultez les preuves derriere cette recommandation.",
+      "title": "Pourquoi cette compatibilite ?"
+    }
+  },
   "form": {
     "confirmPassword": "Confirmation du mot de passe",
     "email": "Adresse e-mail",
@@ -266,6 +279,16 @@
       "info": "Mon compte",
       "label": "Mon compte",
       "security": "Mot de passe"
+    },
+    "peerReviews": "Évaluations par les pairs"
+  },
+  "peerReviews": {
+    "title": "Évaluations par les pairs",
+    "description": "Consultez les retours de vos pairs et collaborez tout au long de votre parcours de candidature.",
+    "empty": {
+      "title": "Évaluations par les pairs",
+      "description": "Vous n'avez pas encore d'évaluations. Lorsque vous demanderez ou recevrez des commentaires, ils apparaîtront ici.",
+      "action": "Parcourir les candidatures"
     }
   },
   "profile": {
@@ -289,6 +312,19 @@
       "security": "Securite"
     },
     "title": "Parametres du profil"
+  },
+  "skillsGap": {
+    "current": "Actuel",
+    "growthHintTitle": "Parcours de progression",
+    "levelComparison": "Actuel vs objectif",
+    "levelProgress": "Actuel {{current}} / objectif {{target}}",
+    "loadingQuests": "Ouvrez cette competence pour charger les quetes recommandees.",
+    "questHelpText": "Commencez par la quete qui cree le gain mesurable le plus rapide.",
+    "recommendedQuests": "Quetes recommandees",
+    "shortest": "Chemin le plus court",
+    "shortestPath": "{{minutes}} min chemin le plus court",
+    "startQuest": "Demarrer la quete",
+    "target": "Objectif"
   },
   "routes": {
     "account": "Compte",
