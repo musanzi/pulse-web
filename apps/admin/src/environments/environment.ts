@@ -1,3 +1,4 @@
 export const environment = {
-  apiUrl: 'https://api.com'
+  apiUrl: 'https://api.com',
+  appUrl: 'https://admin.app.com'
 };

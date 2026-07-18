@@ -197,15 +197,45 @@
     "startNow": "Demarrer maintenant"
   },
   "applications": {
+    "dashboard": {
+      "demoProfile": "Profil de demonstration",
+      "description": "Decouvrez comment les preuves de votre profil correspondent au role et quelle quete ciblee peut ameliorer votre compatibilite.",
+      "eyebrow": "Analyse de compatibilite par IA",
+      "loading": "Analyse de votre profil de talent pour ce role...",
+      "openProfile": "Ouvrir le profil",
+      "profileRequiredDescription": "Completez votre profil de talent avant de demander une analyse de compatibilite par IA.",
+      "profileRequiredTitle": "Profil de talent requis",
+      "title": "Tableau de bord des candidatures"
+    },
     "match": {
       "aiReviewed": "Analyse IA prete",
       "browseQuests": "Explorer les quetes",
+      "goodConfidence": "Bonne compatibilite",
+      "growthConfidence": "Compatibilite a developper",
+      "highConfidence": "Forte compatibilite",
+      "loadFailed": "Impossible de charger l'analyse de compatibilite par IA",
+      "mockHeadline": "Forte compatibilite avec ce role",
+      "mockSummary": "Votre profil recoupe le flux de donnees principal du role, avec un axe de progression cible avant de renforcer vos preuves projet.",
       "overlapTitle": "Competences alignees",
+      "reviewEta": "Pret maintenant",
+      "scoreAria": "Score de compatibilite de {{score}} pour cent",
       "scoreLabel": "Compatibilite",
       "viewSkillPlan": "Voir le plan de competences"
     },
     "rationale": {
       "description": "Consultez les preuves derriere cette recommandation.",
+      "growthTitle": "Espace de progression",
+      "growthAreaMetric": "Prochaine etape suggeree",
+      "mockGrowthAreaDescription": "La narration de tableaux de bord est la competence la plus claire a renforcer avant le prochain point de candidature.",
+      "mockGrowthAreaTitle": "Un axe de progression",
+      "mockProjectFitDescription": "Vos projets soumis correspondent au meme flux de nettoyage et d'analyse de donnees que celui attendu pour ce role.",
+      "mockProjectFitTitle": "Preuves projet coherentes",
+      "mockSkillOverlapDescription": "Python, Data Analysis et SQL recoupent directement les exigences les plus importantes du role.",
+      "mockSkillOverlapTitle": "Competences cles alignees",
+      "noGrowthItems": "Aucun axe de progression cible n'est requis pour ce role pour le moment.",
+      "overlapTitle": "Avantages d'alignement",
+      "projectFitMetric": "Gain estime",
+      "skillOverlapMetric": "Exigences couvertes",
       "title": "Pourquoi cette compatibilite ?"
     }
   },
@@ -280,6 +310,7 @@
       "label": "Mon compte",
       "security": "Mot de passe"
     },
+    "applications": "Candidatures",
     "peerReviews": "Évaluations par les pairs"
   },
   "peerReviews": {
@@ -328,6 +359,7 @@
   },
   "routes": {
     "account": "Compte",
+    "applications": "Candidatures",
     "auth": "Authentification",
     "forgotPassword": "Mot de passe oublie",
     "forgotPasswordSent": "Lien envoye",
@@ -336,7 +368,8 @@
     "resetPassword": "Reinitialiser le mot de passe",
     "security": "Securite",
     "signIn": "Connexion",
-    "signUp": "Inscription"
+    "signUp": "Inscription",
+    "peerReviews": "Evaluations par les pairs"
   },
   "theme": {
     "dark": "Sombre",

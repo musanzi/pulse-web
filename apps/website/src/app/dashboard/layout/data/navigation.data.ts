@@ -19,7 +19,12 @@ export const NAVIGATION: INavigationItem[] = [
         route: '/dashboard/security'
       },
       {
-  
+        id: 'applications',
+        label: 'navigation.applications',
+        icon: 'briefcase-business',
+        route: '/dashboard/applications'
+      },
+      {
         id: 'peer-reviews',
         label: 'navigation.peerReviews',
         icon: 'users',

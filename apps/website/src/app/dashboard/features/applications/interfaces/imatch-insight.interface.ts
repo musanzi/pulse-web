@@ -1,8 +1,13 @@
+import { IAiMatchMetadata, IMatchScoreBreakdown } from './match-model.interface';
+
 export interface IMatchInsight {
   applicationId: string;
+  talentProfileId: string;
   roleId: string;
   roleTitle: string;
-  score: number;
+  compatibilityScore: number;
+  scoreBreakdown: IMatchScoreBreakdown;
+  ai: IAiMatchMetadata;
   confidence: 'low' | 'medium' | 'high';
   status: 'queued' | 'reviewing' | 'ready';
   headlineKey: string;

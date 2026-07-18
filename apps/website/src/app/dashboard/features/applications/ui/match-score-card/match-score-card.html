@@ -1,21 +1,30 @@
-<mat-card appearance="outlined" class="overflow-hidden border-neutral-200 bg-white dark:border-neutral-800 dark:bg-neutral-900">
-  <mat-card-content class="grid gap-5 p-5 md:grid-cols-[11rem_1fr]">
-    <section class="flex flex-col items-center justify-center gap-3">
+<mat-card
+  appearance="outlined"
+  class="overflow-hidden border-neutral-200 bg-white shadow-sm shadow-neutral-950/5 dark:border-neutral-800 dark:bg-neutral-900 dark:shadow-black/20">
+  <mat-card-content class="grid gap-5 p-4 sm:p-5 md:grid-cols-[10.5rem_1fr]">
+    <section class="flex flex-col items-center justify-center gap-3 rounded-lg bg-neutral-50 p-4 dark:bg-neutral-950">
       <div
-        class="relative h-24 w-44 overflow-hidden"
-        [style.--match-angle]="insight().score + '%'"
-        aria-hidden="true">
+        class="relative grid size-32 place-items-center rounded-full bg-[conic-gradient(var(--mat-sys-primary)_var(--score-angle),var(--mat-sys-surface-container-high)_0deg)] shadow-inner shadow-neutral-950/10 dark:shadow-black/30"
+        [style.--score-angle]="scoreAngle()"
+        [attr.aria-label]="'applications.match.scoreAria' | transloco: { score: matchResult().compatibilityScore }"
+        role="img">
         <div
-          class="absolute left-1/2 top-0 h-44 w-44 -translate-x-1/2 rounded-full bg-[conic-gradient(var(--mat-sys-primary)_var(--match-angle),var(--mat-sys-surface-container-high)_0)]">
+          class="absolute inset-2 rounded-full bg-[radial-gradient(circle_at_50%_35%,color-mix(in_srgb,var(--mat-sys-primary)_10%,transparent),transparent_55%)]"></div>
+        <div class="relative grid size-24 place-items-center rounded-full bg-white dark:bg-neutral-900">
+          <div class="text-center">
+            <div class="font-mono text-4xl font-semibold text-neutral-950 dark:text-white">
+              {{ matchResult().compatibilityScore }}%
+            </div>
+            <div class="mt-0.5 text-xs font-semibold uppercase text-primary-600 dark:text-primary-400">
+              {{ 'applications.match.scoreLabel' | transloco }}
+            </div>
+          </div>
         </div>
-        <div class="absolute left-1/2 top-5 h-[8.5rem] w-[8.5rem] -translate-x-1/2 rounded-full bg-white dark:bg-neutral-900"></div>
       </div>
 
-      <div class="-mt-10 text-center">
-        <div class="font-mono text-4xl font-semibold text-neutral-950 dark:text-white">{{ insight().score }}%</div>
-        <div class="mt-1 text-sm font-medium text-neutral-500 dark:text-neutral-400">
-          {{ 'applications.match.scoreLabel' | transloco }}
-        </div>
+      <div
+        class="rounded-full bg-primary-50 px-3 py-1 text-xs font-semibold text-primary-700 dark:bg-primary-950/50 dark:text-primary-300">
+        {{ scoreTone() | transloco }}
       </div>
     </section>
 
@@ -28,40 +37,47 @@
           </div>
 
           <h2 class="mt-2 text-2xl font-semibold text-neutral-950 dark:text-white">
-            {{ insight().headlineKey | transloco }}
+            {{ matchResult().headlineKey | transloco }}
           </h2>
 
           <p class="mt-2 max-w-2xl text-md text-neutral-500 dark:text-neutral-400">
-            {{ insight().summaryKey | transloco }}
+            {{ matchResult().summaryKey | transloco }}
           </p>
         </div>
 
         <div
           class="inline-flex w-fit items-center gap-2 rounded-lg border border-primary-200 bg-primary-50 px-3 py-2 text-sm font-semibold text-primary-700 dark:border-primary-900/70 dark:bg-primary-950/40 dark:text-primary-300">
           <mat-icon class="size-4" svgIcon="timer"></mat-icon>
-          {{ insight().reviewEtaKey | transloco }}
+          {{ matchResult().reviewEtaKey | transloco }}
         </div>
       </div>
 
       <mat-divider class="my-4" />
 
-      <div class="grid gap-4 lg:grid-cols-[1fr_auto] lg:items-end">
+      <div class="grid gap-4 xl:grid-cols-[1fr_auto] xl:items-end">
         <div>
-          <div class="text-sm font-semibold text-neutral-700 dark:text-neutral-200">
-            {{ 'applications.match.overlapTitle' | transloco }}
+          <div class="flex items-center justify-between gap-3">
+            <div class="text-sm font-semibold text-neutral-700 dark:text-neutral-200">
+              {{ 'applications.match.overlapTitle' | transloco }}
+            </div>
+            <div class="font-mono text-xs font-semibold text-neutral-400 dark:text-neutral-500">
+              {{ matchResult().matchedSkills.length }}/{{ matchResult().matchedSkills.length +
+              matchResult().missingSkills.length }}
+            </div>
           </div>
 
-          <mat-chip-set class="mt-3" [attr.aria-label]="'applications.match.overlapTitle' | transloco">
-            @for (skill of insight().matchedSkills; track skill.id) {
-              <mat-chip class="font-medium">
-                <mat-icon matChipAvatar svgIcon="badge-check"></mat-icon>
-                {{ skill.name }}
-              </mat-chip>
+          <div class="mt-3 flex flex-wrap gap-2" [attr.aria-label]="'applications.match.overlapTitle' | transloco">
+            @for (skill of matchResult().matchedSkills; track skill.id) {
+            <span
+              class="inline-flex items-center gap-1.5 rounded-full border border-primary-200 bg-primary-50 px-3 py-1 text-xs font-semibold text-primary-700 dark:border-primary-900/70 dark:bg-primary-950/40 dark:text-primary-300">
+              <mat-icon class="size-3.5" svgIcon="badge-check"></mat-icon>
+              {{ skill.name }}
+            </span>
             }
-          </mat-chip-set>
+          </div>
         </div>
 
-        <div class="flex flex-wrap gap-2 lg:justify-end">
+        <div class="flex flex-wrap gap-2 xl:justify-end">
           <button matButton="filled" type="button" [routerLink]="['/dashboard/skills-gap']">
             <mat-icon svgIcon="route"></mat-icon>
             {{ 'applications.match.viewSkillPlan' | transloco }}

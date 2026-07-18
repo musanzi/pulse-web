@@ -7,7 +7,8 @@ import { provideNativeDateAdapter } from '@angular/material/core';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { provideClientHydration } from '@angular/platform-browser';
 import { provideRouter, TitleStrategy, withComponentInputBinding, withInMemoryScrolling } from '@angular/router';
-import { provideIcons, provideTheming, TranslocoHttpLoader } from '@libs/core';
+import { APP_URL, provideIcons, provideTheming, TranslocoHttpLoader } from '@libs/core';
+import { environment } from '../environments/environment';
 import { provideApp } from './app.provider';
 import { routes } from './app.routes';
 import { httpInterceptor, PageTitleStrategy } from './shared';
@@ -17,6 +18,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideHttpClient(withInterceptors([httpInterceptor])),
+    { provide: APP_URL, useValue: environment.appUrl },
     provideTransloco({
       config: translocoConfig({
         availableLangs: ['fr', 'en'],

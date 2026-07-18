@@ -1,0 +1,66 @@
+<div class="mx-auto flex w-full max-w-6xl flex-col gap-5 p-4 sm:p-6 lg:p-8">
+  <header
+    class="flex flex-col gap-3 border-b border-neutral-200 pb-5 dark:border-neutral-800 sm:flex-row sm:items-end sm:justify-between">
+    <div>
+      <div class="flex items-center gap-2 text-sm font-semibold text-primary-600 dark:text-primary-400">
+        <mat-icon class="size-4" svgIcon="sparkles"></mat-icon>
+        {{ 'applications.dashboard.eyebrow' | transloco }}
+      </div>
+      <h1 class="mt-2 text-3xl font-semibold text-neutral-950 dark:text-white">
+        {{ 'applications.dashboard.title' | transloco }}
+      </h1>
+      <p class="mt-2 max-w-2xl text-md text-neutral-500 dark:text-neutral-400">
+        {{ 'applications.dashboard.description' | transloco }}
+      </p>
+    </div>
+
+    @if (applicationMatchStore.talentProfile(); as profile) {
+    <div
+      class="flex items-center gap-2 rounded-lg border border-neutral-200 bg-white px-3 py-2 text-sm dark:border-neutral-800 dark:bg-neutral-900">
+      <mat-icon class="size-4 text-neutral-400" svgIcon="user-round-check"></mat-icon>
+      <span class="font-medium text-neutral-700 dark:text-neutral-200">{{ profile.displayName }}</span>
+      @if (profile.source === 'mock') {
+      <span
+        class="rounded-full bg-amber-50 px-2 py-0.5 text-xs font-semibold text-amber-700 dark:bg-amber-950/40 dark:text-amber-300">
+        {{ 'applications.dashboard.demoProfile' | transloco }}
+      </span>
+      }
+    </div>
+    }
+  </header>
+
+  @if (applicationMatchStore.loading()) {
+  <div
+    class="flex min-h-64 flex-col items-center justify-center gap-3 rounded-lg border border-neutral-200 bg-white p-8 dark:border-neutral-800 dark:bg-neutral-900">
+    <mat-spinner diameter="36"></mat-spinner>
+    <div class="text-sm font-medium text-neutral-500 dark:text-neutral-400">
+      {{ 'applications.dashboard.loading' | transloco }}
+    </div>
+  </div>
+  } @else if (applicationMatchStore.error(); as error) {
+  <div
+    class="flex min-h-56 flex-col items-center justify-center gap-3 rounded-lg border border-error-200 bg-error-50 p-8 text-center dark:border-error-900/70 dark:bg-error-950/30">
+    <mat-icon class="size-6 text-error-600 dark:text-error-400" svgIcon="circle-alert"></mat-icon>
+    <p class="text-sm font-medium text-error-700 dark:text-error-300">{{ error | transloco }}</p>
+  </div>
+  } @else if (applicationMatchStore.matchResult(); as matchResult) {
+  <app-match-score-card [matchResult]="matchResult" />
+  <app-ai-rationale-panel [matchResult]="matchResult" />
+  } @else {
+  <div
+    class="flex min-h-56 flex-col items-center justify-center gap-3 rounded-lg border border-neutral-200 bg-white p-8 text-center dark:border-neutral-800 dark:bg-neutral-900">
+    <mat-icon class="size-6 text-neutral-400" svgIcon="user-round-search"></mat-icon>
+    <div>
+      <div class="font-semibold text-neutral-950 dark:text-white">
+        {{ 'applications.dashboard.profileRequiredTitle' | transloco }}
+      </div>
+      <p class="mt-1 text-sm text-neutral-500 dark:text-neutral-400">
+        {{ 'applications.dashboard.profileRequiredDescription' | transloco }}
+      </p>
+    </div>
+    <button matButton="filled" type="button" [routerLink]="['/dashboard/account']">
+      {{ 'applications.dashboard.openProfile' | transloco }}
+    </button>
+  </div>
+  }
+</div>

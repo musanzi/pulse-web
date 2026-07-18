@@ -197,15 +197,45 @@
     "startNow": "Start now"
   },
   "applications": {
+    "dashboard": {
+      "demoProfile": "Demo profile",
+      "description": "See how your talent evidence aligns with the role and where one focused quest can improve your fit.",
+      "eyebrow": "AI match intelligence",
+      "loading": "Reviewing your talent profile against this role...",
+      "openProfile": "Open profile",
+      "profileRequiredDescription": "Complete your talent profile before requesting an AI match review.",
+      "profileRequiredTitle": "Talent profile required",
+      "title": "Application match dashboard"
+    },
     "match": {
       "aiReviewed": "AI review ready",
       "browseQuests": "Browse quests",
+      "goodConfidence": "Good fit",
+      "growthConfidence": "Growth fit",
+      "highConfidence": "High fit",
+      "loadFailed": "Unable to load the AI match review",
+      "mockHeadline": "Strong fit for this role",
+      "mockSummary": "Your profile overlaps with the role's core data workflow, with one focused growth area before you submit stronger project evidence.",
       "overlapTitle": "Matched skills",
+      "reviewEta": "Ready now",
+      "scoreAria": "{{score}} percent compatibility score",
       "scoreLabel": "Match",
       "viewSkillPlan": "View skill plan"
     },
     "rationale": {
       "description": "Review the evidence behind this recommendation.",
+      "growthTitle": "Growth space",
+      "growthAreaMetric": "Suggested next step",
+      "mockGrowthAreaDescription": "Dashboard storytelling is the clearest skill to improve before the next application checkpoint.",
+      "mockGrowthAreaTitle": "One growth area",
+      "mockProjectFitDescription": "Your submitted projects map to the same data cleaning and analysis workflow used by this role.",
+      "mockProjectFitTitle": "Project evidence fits",
+      "mockSkillOverlapDescription": "Python, Data Analysis, and SQL overlap directly with the role's highest-weight requirements.",
+      "mockSkillOverlapTitle": "Core skills overlap",
+      "noGrowthItems": "No targeted growth item is required for this role right now.",
+      "overlapTitle": "Overlap advantages",
+      "projectFitMetric": "Expected lift",
+      "skillOverlapMetric": "Matched requirements",
       "title": "Why this match?"
     }
   },
@@ -280,6 +310,7 @@
       "label": "My account",
       "security": "Password"
     },
+    "applications": "Applications",
     "peerReviews": "Peer Reviews"
   },
   "peerReviews": {
@@ -328,6 +359,7 @@
   },
   "routes": {
     "account": "Account",
+    "applications": "Applications",
     "auth": "Authentication",
     "forgotPassword": "Forgot password",
     "forgotPasswordSent": "Link sent",
@@ -336,7 +368,8 @@
     "resetPassword": "Reset password",
     "security": "Security",
     "signIn": "Sign in",
-    "signUp": "Sign up"
+    "signUp": "Sign up",
+    "peerReviews": "Peer Reviews"
   },
   "theme": {
     "dark": "Dark",
