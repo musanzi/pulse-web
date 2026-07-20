@@ -13,6 +13,12 @@ export const NAVIGATION: INavigationItem[] = [
         icon: 'layout-dashboard'
       },
       {
+        id: 'analytics',
+        label: 'admin.navigation.general.analytics',
+        route: '/dashboard/analytics',
+        icon: 'chart-no-axes-combined'
+      },
+      {
         id: 'roles',
         label: 'admin.navigation.general.roles',
         route: '/roles',

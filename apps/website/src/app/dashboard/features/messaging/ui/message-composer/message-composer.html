@@ -1,0 +1,22 @@
+<form
+  class="flex items-start gap-2 border-t border-neutral-200 bg-white p-3 dark:border-neutral-800 dark:bg-neutral-900"
+  (ngSubmit)="submit()">
+  <mat-form-field class="min-w-0 flex-1" subscriptSizing="dynamic">
+    <mat-label>{{ 'messaging.composer.label' | transloco }}</mat-label>
+    <input
+      matInput
+      autocomplete="off"
+      [formControl]="message"
+      [placeholder]="'messaging.composer.placeholder' | transloco" />
+    <mat-hint align="end">{{ message.value.length }}/1000</mat-hint>
+  </mat-form-field>
+
+  <button
+    matButton="filled"
+    class="mt-1 min-w-24"
+    type="submit"
+    [disabled]="message.invalid || disabled() || sending()">
+    <mat-icon svgIcon="send"></mat-icon>
+    {{ (sending() ? 'messaging.composer.sending' : 'messaging.composer.send') | transloco }}
+  </button>
+</form>

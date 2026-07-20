@@ -29,6 +29,12 @@ export const NAVIGATION: INavigationItem[] = [
         label: 'navigation.peerReviews',
         icon: 'users',
         route: '/dashboard/peer-reviews'
+      },
+      {
+        id: 'messaging',
+        label: 'navigation.messaging',
+        icon: 'messages-square',
+        route: '/dashboard/messaging'
       }
     ]
   }

@@ -54,11 +54,64 @@
     },
     "navigation": {
       "general": {
+        "analytics": "Analytique",
         "dashboard": "Dashboard",
         "description": "Gestion des ressources",
         "label": "General",
         "roles": "Roles",
         "users": "Utilisateurs"
+      }
+    },
+    "analytics": {
+      "description": "Surveillez la sante des programmes, l'engagement de la plateforme et les rapports DigiPulse.",
+      "errors": {
+        "load": "Impossible de charger les donnees analytiques"
+      },
+      "eyebrow": "Intelligence des programmes",
+      "loading": "Preparation de l'espace analytique...",
+      "metrics": {
+        "activeTalents": "Talents actifs",
+        "aiMatches": "Correspondances IA generees",
+        "collaborations": "Messages de collaboration",
+        "completionRate": "Taux de quetes terminees"
+      },
+      "mockSource": "Donnees simulees",
+      "programs": {
+        "coordinator": "Coordinateur",
+        "description": "Suivez la progression et ouvrez les preuves du talent associe a chaque projet.",
+        "progress": "Progression",
+        "project": "Projet du programme",
+        "status": "Statut",
+        "talent": "Talent",
+        "title": "Supervision des programmes",
+        "viewTalent": "Voir le talent"
+      },
+      "range": {
+        "7d": "7 jours",
+        "30d": "30 jours",
+        "90d": "90 jours",
+        "label": "Periode analytique"
+      },
+      "reports": {
+        "description": "Exports recents prepares pour les parties prenantes.",
+        "download": "Telecharger le rapport",
+        "engagementExport": "Export des donnees d'engagement",
+        "programHealth": "Synthese de sante du programme",
+        "title": "Centre de rapports"
+      },
+      "status": {
+        "attention": "Attention requise",
+        "completed": "Termine",
+        "on-track": "Sur la bonne voie"
+      },
+      "title": "Tableau de bord analytique admin",
+      "updated": "Mis a jour",
+      "usage": {
+        "activeUsers": "Utilisateurs actifs",
+        "description": "Activite quotidienne des parcours de correspondance et de collaboration.",
+        "matches": "Correspondances IA",
+        "messages": "Messages",
+        "title": "Dynamique d'utilisation"
       }
     },
     "roles": {
@@ -81,6 +134,7 @@
       "title": "Roles"
     },
     "routes": {
+      "analytics": "Analytique",
       "auth": "Authentification",
       "forgotPassword": "Mot de passe oublie",
       "forgotPasswordSent": "Lien envoye",
@@ -220,6 +274,7 @@
       "reviewEta": "Pret maintenant",
       "scoreAria": "Score de compatibilite de {{score}} pour cent",
       "scoreLabel": "Compatibilite",
+      "startConversation": "Demarrer une conversation",
       "viewSkillPlan": "Voir le plan de competences"
     },
     "rationale": {
@@ -311,7 +366,43 @@
       "security": "Mot de passe"
     },
     "applications": "Candidatures",
+    "messaging": "Messagerie",
     "peerReviews": "Évaluations par les pairs"
+  },
+  "messaging": {
+    "composer": {
+      "label": "Message",
+      "placeholder": "Ecrivez une prochaine etape claire...",
+      "send": "Envoyer",
+      "sending": "Envoi..."
+    },
+    "conversations": {
+      "description": "Echanges talents, employeurs et coordinateurs",
+      "empty": "Aucune conversation pour le moment.",
+      "title": "Conversations",
+      "unread": "Messages non lus"
+    },
+    "description": "Regroupez candidatures, jalons de projet et retours dans un espace de conversation cible.",
+    "errors": {
+      "load": "Impossible de charger l'espace de messagerie",
+      "messages": "Impossible de charger ce fil de messages",
+      "send": "Impossible d'envoyer le message"
+    },
+    "eyebrow": "Centre de collaboration",
+    "mockSource": "Conversation simulee",
+    "presence": "Reseau de collaboration en ligne",
+    "roles": {
+      "coordinator": "Coordinateur",
+      "employer": "Employeur",
+      "talent": "Talent"
+    },
+    "thread": {
+      "empty": "Demarrez la conversation avec une prochaine etape concrete.",
+      "selectDescription": "Choisissez une conversation pour consulter son historique.",
+      "selectTitle": "Selectionnez une conversation",
+      "today": "Aujourd'hui"
+    },
+    "title": "Centre de messagerie"
   },
   "peerReviews": {
     "title": "Évaluations par les pairs",
@@ -334,6 +425,17 @@
       "title": "Informations du compte"
     },
     "description": "Gerez les informations de votre compte et votre mot de passe.",
+    "directory": {
+      "about": "A propos",
+      "availability": {
+        "limited": "Disponibilite limitee",
+        "open": "Disponible pour des projets"
+      },
+      "mockSource": "Profil simule",
+      "projects": "Preuves de projet",
+      "skills": "Profil de competences verifiees",
+      "startConversation": "Demarrer une conversation"
+    },
     "security": {
       "description": "Choisissez un nouveau mot de passe, puis confirmez-le avant d'enregistrer.",
       "title": "Changer le mot de passe"
@@ -364,12 +466,14 @@
     "forgotPassword": "Mot de passe oublie",
     "forgotPasswordSent": "Lien envoye",
     "home": "Accueil",
+    "messaging": "Messagerie",
     "profile": "Profil",
     "resetPassword": "Reinitialiser le mot de passe",
     "security": "Securite",
     "signIn": "Connexion",
     "signUp": "Inscription",
-    "peerReviews": "Evaluations par les pairs"
+    "peerReviews": "Evaluations par les pairs",
+    "talentProfile": "Profil du talent"
   },
   "theme": {
     "dark": "Sombre",

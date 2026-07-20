@@ -78,6 +78,17 @@
         </div>
 
         <div class="flex flex-wrap gap-2 xl:justify-end">
+          <a
+            matButton="filled"
+            [routerLink]="['/dashboard/messaging']"
+            [queryParams]="{
+              applicationId: matchResult().applicationId,
+              talentProfileId: matchResult().talentProfileId
+            }">
+            <mat-icon svgIcon="message-circle-more"></mat-icon>
+            {{ 'applications.match.startConversation' | transloco }}
+          </a>
+
           <button matButton="filled" type="button" [routerLink]="['/dashboard/skills-gap']">
             <mat-icon svgIcon="route"></mat-icon>
             {{ 'applications.match.viewSkillPlan' | transloco }}

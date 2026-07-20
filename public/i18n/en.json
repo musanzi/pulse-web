@@ -54,11 +54,64 @@
     },
     "navigation": {
       "general": {
+        "analytics": "Analytics",
         "dashboard": "Dashboard",
         "description": "Resource management",
         "label": "General",
         "roles": "Roles",
         "users": "Users"
+      }
+    },
+    "analytics": {
+      "description": "Monitor program health, platform engagement, and reporting readiness across DigiPulse.",
+      "errors": {
+        "load": "Unable to load analytics data"
+      },
+      "eyebrow": "Program intelligence",
+      "loading": "Preparing the analytics workspace...",
+      "metrics": {
+        "activeTalents": "Active talents",
+        "aiMatches": "AI matches generated",
+        "collaborations": "Collaboration messages",
+        "completionRate": "Quest completion rate"
+      },
+      "mockSource": "Mock data",
+      "programs": {
+        "coordinator": "Coordinator",
+        "description": "Track delivery progress and open the talent evidence behind each project.",
+        "progress": "Progress",
+        "project": "Program project",
+        "status": "Status",
+        "talent": "Talent",
+        "title": "Program oversight",
+        "viewTalent": "View talent"
+      },
+      "range": {
+        "7d": "7 days",
+        "30d": "30 days",
+        "90d": "90 days",
+        "label": "Analytics time range"
+      },
+      "reports": {
+        "description": "Recent exports prepared for program stakeholders.",
+        "download": "Download report",
+        "engagementExport": "Engagement data export",
+        "programHealth": "Program health brief",
+        "title": "Reporting center"
+      },
+      "status": {
+        "attention": "Needs attention",
+        "completed": "Completed",
+        "on-track": "On track"
+      },
+      "title": "Admin analytics dashboard",
+      "updated": "Updated",
+      "usage": {
+        "activeUsers": "Active users",
+        "description": "Daily activity across matching and collaboration workflows.",
+        "matches": "AI matches",
+        "messages": "Messages",
+        "title": "Usage momentum"
       }
     },
     "roles": {
@@ -81,6 +134,7 @@
       "title": "Roles"
     },
     "routes": {
+      "analytics": "Analytics",
       "auth": "Authentication",
       "forgotPassword": "Forgot password",
       "forgotPasswordSent": "Link sent",
@@ -220,6 +274,7 @@
       "reviewEta": "Ready now",
       "scoreAria": "{{score}} percent compatibility score",
       "scoreLabel": "Match",
+      "startConversation": "Start conversation",
       "viewSkillPlan": "View skill plan"
     },
     "rationale": {
@@ -311,7 +366,43 @@
       "security": "Password"
     },
     "applications": "Applications",
+    "messaging": "Messaging",
     "peerReviews": "Peer Reviews"
+  },
+  "messaging": {
+    "composer": {
+      "label": "Message",
+      "placeholder": "Write a clear next step...",
+      "send": "Send",
+      "sending": "Sending..."
+    },
+    "conversations": {
+      "description": "Talent, employer, and coordinator threads",
+      "empty": "No conversations yet.",
+      "title": "Conversations",
+      "unread": "Unread messages"
+    },
+    "description": "Keep applications, project milestones, and feedback in one focused conversation space.",
+    "errors": {
+      "load": "Unable to load the messaging workspace",
+      "messages": "Unable to load this message stream",
+      "send": "Unable to send the message"
+    },
+    "eyebrow": "Collaboration hub",
+    "mockSource": "Mock conversation",
+    "presence": "Collaboration network online",
+    "roles": {
+      "coordinator": "Coordinator",
+      "employer": "Employer",
+      "talent": "Talent"
+    },
+    "thread": {
+      "empty": "Start the conversation with a concrete next step.",
+      "selectDescription": "Choose a conversation to review its message history.",
+      "selectTitle": "Select a conversation",
+      "today": "Today"
+    },
+    "title": "Messaging center"
   },
   "peerReviews": {
     "title": "Peer Reviews",
@@ -334,6 +425,17 @@
       "title": "Account information"
     },
     "description": "Manage your account information and password.",
+    "directory": {
+      "about": "About",
+      "availability": {
+        "limited": "Limited availability",
+        "open": "Open to projects"
+      },
+      "mockSource": "Mock profile",
+      "projects": "Project evidence",
+      "skills": "Verified skill profile",
+      "startConversation": "Start conversation"
+    },
     "security": {
       "description": "Choose a new password, then confirm it before saving.",
       "title": "Change password"
@@ -364,12 +466,14 @@
     "forgotPassword": "Forgot password",
     "forgotPasswordSent": "Link sent",
     "home": "Home",
+    "messaging": "Messaging",
     "profile": "Profile",
     "resetPassword": "Reset password",
     "security": "Security",
     "signIn": "Sign in",
     "signUp": "Sign up",
-    "peerReviews": "Peer Reviews"
+    "peerReviews": "Peer Reviews",
+    "talentProfile": "Talent profile"
   },
   "theme": {
     "dark": "Dark",

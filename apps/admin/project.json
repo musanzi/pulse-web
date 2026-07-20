@@ -72,6 +72,13 @@
       "options": {
         "lintFilePatterns": ["apps/admin/**/*.ts", "apps/admin/**/*.html"]
       }
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node node_modules/vitest/vitest.mjs run apps/admin/src",
+        "cwd": "{workspaceRoot}"
+      }
     }
   }
 }
