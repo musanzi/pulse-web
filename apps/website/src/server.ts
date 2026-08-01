@@ -6,25 +6,54 @@ import {
   writeResponseToNodeResponse
 } from '@angular/ssr/node';
 import express from 'express';
+import { createBetaFeedbackRouter } from './beta-feedback-api';
 
 const browserDistFolder = join(import.meta.dirname, '../browser');
 
 const app = express();
+const allowedHosts = (process.env['ALLOWED_HOSTS'] ?? '*.localhost,localhost')
+  .split(',')
+  .map((host) => host.trim())
+  .filter(Boolean);
+const allowedOrigins = (process.env['BETA_ALLOWED_ORIGINS'] ?? 'http://admin.localhost,http://localhost:4300')
+  .split(',')
+  .map((origin) => origin.trim());
+const adminHosts = (process.env['BETA_ADMIN_HOSTS'] ?? 'admin.localhost')
+  .split(',')
+  .map((host) => host.trim());
 const angularApp = new AngularNodeAppEngine({
-  allowedHosts: ['*.localhost', 'localhost']
+  allowedHosts
 });
 
-/**
- * Example Express Rest API endpoints can be defined here.
- * Uncomment and define endpoints as necessary.
- *
- * Example:
- * ```ts
- * app.get('/api/{*splat}', (req, res) => {
- *   // Handle API request
- * });
- * ```
- */
+app.get('/healthz', (_request, response) => {
+  response.status(200).json({ service: 'website', status: 'ok' });
+});
+
+app.use('/beta-api', (request, response, next) => {
+  const origin = request.headers.origin;
+  const adminRequest =
+    adminHosts.includes(request.hostname) || (origin ? allowedOrigins.includes(origin) : false);
+
+  if (origin && allowedOrigins.includes(origin)) {
+    response.setHeader('Access-Control-Allow-Origin', origin);
+    response.setHeader('Vary', 'Origin');
+    response.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    response.setHeader('Access-Control-Allow-Methods', 'GET,POST,PATCH,OPTIONS');
+  }
+
+  if (request.method === 'OPTIONS') {
+    response.sendStatus(204);
+    return;
+  }
+
+  if (request.method !== 'POST' && !adminRequest) {
+    response.status(403).json({ message: 'Admin feedback access required' });
+    return;
+  }
+
+  next();
+});
+app.use('/beta-api', createBetaFeedbackRouter());
 
 /**
  * Serve static files from /browser

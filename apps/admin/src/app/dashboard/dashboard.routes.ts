@@ -21,6 +21,11 @@ export const dashboardRoutes: Route[] = [
     loadChildren: () => import('./features/analytics/analytics.routes').then((routes) => routes.analyticsRoutes)
   },
   {
+    path: '',
+    loadChildren: () =>
+      import('./features/beta-feedback/beta-feedback.routes').then((routes) => routes.betaFeedbackRoutes)
+  },
+  {
     path: 'account',
     title: 'routes.account',
     loadChildren: () => import('./features/account/account.routes').then((r) => r.accountRoutes)

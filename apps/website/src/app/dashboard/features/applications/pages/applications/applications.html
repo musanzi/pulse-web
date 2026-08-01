@@ -19,12 +19,10 @@
       class="flex items-center gap-2 rounded-lg border border-neutral-200 bg-white px-3 py-2 text-sm dark:border-neutral-800 dark:bg-neutral-900">
       <mat-icon class="size-4 text-neutral-400" svgIcon="user-round-check"></mat-icon>
       <span class="font-medium text-neutral-700 dark:text-neutral-200">{{ profile.displayName }}</span>
-      @if (profile.source === 'mock') {
       <span
-        class="rounded-full bg-amber-50 px-2 py-0.5 text-xs font-semibold text-amber-700 dark:bg-amber-950/40 dark:text-amber-300">
-        {{ 'applications.dashboard.demoProfile' | transloco }}
+        class="rounded-full bg-emerald-50 px-2 py-0.5 text-xs font-semibold text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-300">
+        {{ 'applications.dashboard.apiProfile' | transloco }}
       </span>
-      }
     </div>
     }
   </header>

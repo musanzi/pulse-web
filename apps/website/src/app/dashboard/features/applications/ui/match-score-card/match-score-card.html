@@ -37,11 +37,11 @@
           </div>
 
           <h2 class="mt-2 text-2xl font-semibold text-neutral-950 dark:text-white">
-            {{ matchResult().headlineKey | transloco }}
+            {{ matchResult().headline ?? (matchResult().headlineKey | transloco) }}
           </h2>
 
           <p class="mt-2 max-w-2xl text-md text-neutral-500 dark:text-neutral-400">
-            {{ matchResult().summaryKey | transloco }}
+            {{ matchResult().summary ?? (matchResult().summaryKey | transloco) }}
           </p>
         </div>
 
@@ -83,6 +83,7 @@
             [routerLink]="['/dashboard/messaging']"
             [queryParams]="{
               applicationId: matchResult().applicationId,
+              questId: matchResult().roleId,
               talentProfileId: matchResult().talentProfileId
             }">
             <mat-icon svgIcon="message-circle-more"></mat-icon>

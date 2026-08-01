@@ -20,6 +20,8 @@ export class Messaging {
     const context: IMessagingContext = {
       applicationId: queryParams.get('applicationId') ?? undefined,
       conversationId: queryParams.get('conversationId') ?? undefined,
+      participantId: queryParams.get('participantId') ?? undefined,
+      questId: queryParams.get('questId') ?? undefined,
       talentProfileId: queryParams.get('talentProfileId') ?? undefined
     };
 
@@ -35,8 +37,7 @@ export class Messaging {
 
     this.messagingStore.sendMessage({
       body,
-      conversationId,
-      senderId: this.messagingStore.currentUserId()
+      conversationId
     });
   }
 }

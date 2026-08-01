@@ -35,6 +35,12 @@ export const NAVIGATION: INavigationItem[] = [
         label: 'navigation.messaging',
         icon: 'messages-square',
         route: '/dashboard/messaging'
+      },
+      {
+        id: 'beta-feedback',
+        label: 'navigation.betaFeedback',
+        icon: 'message-square-more',
+        route: '/dashboard/feedback'
       }
     ]
   }

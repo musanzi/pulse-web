@@ -1,0 +1,88 @@
+<div class="mx-auto flex w-full max-w-[96rem] flex-col gap-5 p-4 sm:p-6 lg:p-8">
+  <header
+    class="flex flex-col gap-4 border-b border-neutral-200 pb-5 dark:border-neutral-800 lg:flex-row lg:items-end lg:justify-between">
+    <div>
+      <div class="flex items-center gap-2 text-sm font-semibold text-primary-600 dark:text-primary-400">
+        <mat-icon class="size-4" svgIcon="clipboard-list"></mat-icon>
+        {{ 'admin.betaFeedback.eyebrow' | transloco }}
+      </div>
+      <h1 class="mt-2 text-2xl font-semibold text-neutral-950 dark:text-white sm:text-3xl">
+        {{ 'admin.betaFeedback.title' | transloco }}
+      </h1>
+      <p class="mt-1 max-w-2xl text-sm text-neutral-500 dark:text-neutral-400">
+        {{ 'admin.betaFeedback.description' | transloco }}
+      </p>
+    </div>
+
+    <button matButton="outlined" type="button" (click)="feedbackStore.loadFeedback()">
+      <mat-icon svgIcon="refresh-cw"></mat-icon>
+      {{ 'admin.betaFeedback.refresh' | transloco }}
+    </button>
+  </header>
+
+  <admin-feedback-summary-grid [summary]="feedbackStore.summary()" />
+
+  <section class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+    <h2 class="text-base font-semibold text-neutral-950 dark:text-white">
+      {{ 'admin.betaFeedback.logTitle' | transloco }}
+    </h2>
+    <div class="flex flex-col gap-3 sm:flex-row">
+      <mat-form-field appearance="outline">
+        <mat-label>{{ 'admin.betaFeedback.filters.category' | transloco }}</mat-label>
+        <mat-select [value]="feedbackStore.category()" (selectionChange)="feedbackStore.setCategory($event.value)">
+          @for (category of categories; track category) {
+          <mat-option [value]="category">
+            {{ (category === 'all' ? 'admin.betaFeedback.filters.allCategories' : 'betaFeedback.categories.' + category)
+            | transloco }}
+          </mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>{{ 'admin.betaFeedback.filters.status' | transloco }}</mat-label>
+        <mat-select [value]="feedbackStore.status()" (selectionChange)="feedbackStore.setStatus($event.value)">
+          @for (status of statuses; track status) {
+          <mat-option [value]="status">
+            {{ (status === 'all' ? 'admin.betaFeedback.filters.allStatuses' : 'admin.betaFeedback.status.' + status) |
+            transloco }}
+          </mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </section>
+
+  @if (feedbackStore.loading() && !feedbackStore.entries().length) {
+  <div
+    class="grid min-h-80 place-items-center rounded-lg border border-neutral-200 bg-white dark:border-neutral-800 dark:bg-neutral-900">
+    <div class="text-center">
+      <mat-spinner class="mx-auto" diameter="36"></mat-spinner>
+      <p class="mt-3 text-sm text-neutral-500 dark:text-neutral-400">{{ 'admin.betaFeedback.loading' | transloco }}</p>
+    </div>
+  </div>
+  } @else if (feedbackStore.error(); as error) {
+  <div
+    class="rounded-lg border border-error-200 bg-error-50 p-6 text-center text-sm text-error-700 dark:border-error-900/60 dark:bg-error-950/30 dark:text-error-300">
+    {{ error | transloco }}
+  </div>
+  } @else if (feedbackStore.filteredEntries().length) {
+  <admin-feedback-log-table
+    [entries]="feedbackStore.filteredEntries()"
+    [updatingId]="feedbackStore.updatingId()"
+    (statusChanged)="updateStatus($event)" />
+  } @else {
+  <div
+    class="grid min-h-64 place-items-center rounded-lg border border-dashed border-neutral-300 bg-white p-8 text-center dark:border-neutral-700 dark:bg-neutral-900">
+    <div>
+      <mat-icon class="text-neutral-400" svgIcon="inbox"></mat-icon>
+      <h3 class="mt-3 font-semibold text-neutral-950 dark:text-white">
+        {{ 'admin.betaFeedback.empty.title' | transloco }}
+      </h3>
+      <p class="mt-1 text-sm text-neutral-500 dark:text-neutral-400">
+        {{ 'admin.betaFeedback.empty.description' | transloco }}
+      </p>
+    </div>
+  </div>
+  }
+</div>

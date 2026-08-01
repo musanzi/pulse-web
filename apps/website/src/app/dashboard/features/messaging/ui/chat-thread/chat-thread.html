@@ -8,7 +8,7 @@
       </div>
       <div class="min-w-0">
         <div class="truncate text-sm font-semibold text-neutral-950 dark:text-white">
-          {{ activeConversation.participants[1]?.name }}
+          {{ activeConversation.participants[1]?.name ?? ('messaging.participantFallback' | transloco) }}
         </div>
         <div class="flex items-center gap-1.5 text-xs text-neutral-500 dark:text-neutral-400">
           <span
@@ -17,13 +17,13 @@
             [class.bg-neutral-400]="!activeConversation.participants[1]?.online"></span>
           {{ ('messaging.roles.' + activeConversation.participants[1]?.role) | transloco }}
           <span aria-hidden="true">·</span>
-          <span class="truncate">{{ activeConversation.projectTitle }}</span>
+          <span class="truncate">{{ activeConversation.projectTitle || ('messaging.conversationFallback' | transloco) }}</span>
         </div>
       </div>
     </div>
     <span
       class="rounded-full border border-neutral-200 px-2.5 py-1 text-xs font-medium text-neutral-500 dark:border-neutral-700 dark:text-neutral-300">
-      {{ 'messaging.mockSource' | transloco }}
+      {{ 'messaging.apiSource' | transloco }}
     </span>
   </header>
 

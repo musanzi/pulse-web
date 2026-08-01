@@ -1,7 +1,4 @@
-import { ITalentProfile } from './talent-profile.interface';
-
 export interface IApplicationMatchRequest {
-  applicationId: string;
+  applicationId: string | null;
   roleId: string;
-  talentProfile: ITalentProfile;
 }

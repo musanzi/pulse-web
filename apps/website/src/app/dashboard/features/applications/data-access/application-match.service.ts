@@ -1,51 +1,71 @@
-import { Service } from '@angular/core';
-import { map, Observable, timer } from 'rxjs';
-import { IApplicationMatchRequest, IMatchInsight, IMatchSkill, IRoleSkillRequirement } from '../interfaces';
-
-const ROLE_REQUIREMENTS: IRoleSkillRequirement[] = [
-  { category: 'programming', id: 'python', name: 'Python', requiredLevel: 4, weight: 0.34 },
-  { category: 'analytics', id: 'data-analysis', name: 'Data Analysis', requiredLevel: 4, weight: 0.31 },
-  { category: 'data', id: 'sql', name: 'SQL', requiredLevel: 3, weight: 0.18 },
-  {
-    category: 'communication',
-    id: 'dashboard-storytelling',
-    name: 'Dashboard Storytelling',
-    requiredLevel: 4,
-    weight: 0.17
-  }
-];
+import { HttpClient } from '@angular/common/http';
+import { inject, Service } from '@angular/core';
+import { Observable, of, switchMap, throwError } from 'rxjs';
+import {
+  IApplicationMatchRequest,
+  IMatchInsight,
+  IMatchSkill,
+  IRecommendationApiResponse,
+  ITalentProfile
+} from '../interfaces';
 
 @Service()
 export class ApplicationMatchService {
-  loadMatchResult(request: IApplicationMatchRequest): Observable<IMatchInsight> {
-    return timer(300).pipe(map(() => this.createMockMatchInsight(request)));
+  private readonly http = inject(HttpClient);
+
+  loadMatchResult(request: IApplicationMatchRequest, talentProfile: ITalentProfile): Observable<IMatchInsight> {
+    return this.http.get<IRecommendationApiResponse[]>('/matching/me/recommendations').pipe(
+      switchMap((recommendations) =>
+        recommendations.length > 0
+          ? of(recommendations)
+          : this.http.post<IRecommendationApiResponse[]>('/matching/me/recommendations/generate', {})
+      ),
+      switchMap((recommendations) => {
+        const recommendation = this.selectRecommendation(recommendations, request.roleId);
+
+        return recommendation
+          ? of(this.toMatchInsight(recommendation, request, talentProfile))
+          : throwError(() => new Error('No AI recommendation is available for this profile.'));
+      })
+    );
   }
 
-  private createMockMatchInsight(request: IApplicationMatchRequest): IMatchInsight {
-    const matchedSkills = this.getMatchedSkills(request);
-    const missingSkills = this.getMissingSkills(request);
-    const skillAlignment = Math.round(
-      ROLE_REQUIREMENTS.reduce((score, requirement) => {
-        const skill = request.talentProfile.skills.find((item) => item.id === requirement.id);
-        const levelRatio = Math.min((skill?.level ?? 0) / requirement.requiredLevel, 1);
-
-        return score + requirement.weight * levelRatio;
-      }, 0) * 100
+  private selectRecommendation(
+    recommendations: IRecommendationApiResponse[],
+    roleId: string
+  ): IRecommendationApiResponse | undefined {
+    return (
+      recommendations.find(
+        (recommendation) => recommendation.questId === roleId || recommendation.targetRoleId === roleId
+      ) ?? [...recommendations].sort((left, right) => (right.score ?? 0) - (left.score ?? 0))[0]
     );
-    const projectEvidence = request.talentProfile.projects.length > 0 ? 5 : 0;
+  }
+
+  private toMatchInsight(
+    recommendation: IRecommendationApiResponse,
+    request: IApplicationMatchRequest,
+    talentProfile: ITalentProfile
+  ): IMatchInsight {
+    const compatibilityScore = this.toPercentage(recommendation.score);
+    const missingSkills = this.toMissingSkills(recommendation.skillGaps ?? []);
+    const gapNames = new Set(missingSkills.map((skill) => skill.name.toLocaleLowerCase()));
+    const matchedSkills = talentProfile.skills
+      .filter((skill) => !gapNames.has(skill.name.toLocaleLowerCase()))
+      .map<IMatchSkill>((skill) => ({ ...skill }));
+    const growthSkillNames = missingSkills.map((skill) => skill.name).join(', ');
 
     return {
       ai: {
-        model: 'openai/gpt-4.1-mini',
-        promptVersion: 'talent-match-v1',
+        model: recommendation.modelVersion,
+        promptVersion: 'backend-managed',
         provider: 'openrouter',
-        source: 'mock'
+        source: 'api'
       },
       applicationId: request.applicationId,
-      compatibilityScore: Math.min(skillAlignment + projectEvidence, 100),
-      confidence: 'high',
-      generatedAt: new Date().toISOString(),
-      headlineKey: 'applications.match.mockHeadline',
+      compatibilityScore,
+      confidence: compatibilityScore >= 80 ? 'high' : compatibilityScore >= 60 ? 'medium' : 'low',
+      generatedAt: recommendation.updatedAt ?? recommendation.createdAt,
+      headlineKey: 'applications.match.apiHeadline',
       matchedSkills,
       missingSkills,
       nextActions: [
@@ -66,86 +86,83 @@ export class ApplicationMatchService {
       ],
       rationales: [
         {
-          descriptionKey: 'applications.rationale.mockSkillOverlapDescription',
+          description: recommendation.reason,
+          descriptionKey: 'applications.rationale.apiReasonFallback',
           evidenceSkillIds: matchedSkills.map((skill) => skill.id),
           icon: 'badge-check',
-          id: 'skill-overlap',
+          id: 'api-recommendation-reason',
           metricLabelKey: 'applications.rationale.skillOverlapMetric',
-          metricValue: `${matchedSkills.length}/${ROLE_REQUIREMENTS.length}`,
-          titleKey: 'applications.rationale.mockSkillOverlapTitle'
+          metricValue: `${matchedSkills.length}`,
+          titleKey: 'applications.rationale.apiReasonTitle'
         },
-        {
-          descriptionKey: 'applications.rationale.mockProjectFitDescription',
-          evidenceSkillIds: request.talentProfile.projects.flatMap((project) => project.skillIds),
-          icon: 'workflow',
-          id: 'project-fit',
-          metricLabelKey: 'applications.rationale.projectFitMetric',
-          metricValue: `+${projectEvidence}%`,
-          titleKey: 'applications.rationale.mockProjectFitTitle'
-        },
-        {
-          descriptionKey: 'applications.rationale.mockGrowthAreaDescription',
-          evidenceSkillIds: missingSkills.map((skill) => skill.id),
-          icon: 'target',
-          id: 'growth-area',
-          metricLabelKey: 'applications.rationale.growthAreaMetric',
-          metricValue: `${missingSkills.length} quest`,
-          titleKey: 'applications.rationale.mockGrowthAreaTitle'
-        }
+        ...(missingSkills.length > 0
+          ? [
+              {
+                descriptionKey: 'applications.rationale.apiGrowthDescription',
+                evidenceSkillIds: missingSkills.map((skill) => skill.id),
+                icon: 'target',
+                id: 'api-growth-area',
+                metricLabelKey: 'applications.rationale.growthAreaMetric',
+                metricValue: growthSkillNames,
+                titleKey: 'applications.rationale.apiGrowthTitle'
+              }
+            ]
+          : [])
       ],
       reviewEtaKey: 'applications.match.reviewEta',
-      roleId: request.roleId,
-      roleTitle: 'Data Analyst Intern',
+      roleId: recommendation.questId ?? recommendation.targetRoleId ?? request.roleId,
+      roleTitle: recommendation.type,
       scoreBreakdown: {
         experience: 0,
-        projectEvidence,
-        skillAlignment
+        projectEvidence: 0,
+        skillAlignment: compatibilityScore
       },
       status: 'ready',
-      summaryKey: 'applications.match.mockSummary',
-      talentProfileId: request.talentProfile.id
+      summary: recommendation.reason,
+      summaryKey: 'applications.match.apiSummaryFallback',
+      talentProfileId: talentProfile.id
     };
   }
 
-  private getMatchedSkills(request: IApplicationMatchRequest): IMatchSkill[] {
-    return ROLE_REQUIREMENTS.flatMap((requirement) => {
-      const skill = request.talentProfile.skills.find((item) => item.id === requirement.id);
+  private toMissingSkills(skillGaps: Record<string, unknown>[]): IMatchSkill[] {
+    return skillGaps.flatMap((gap, index) => {
+      const name = this.readString(gap, ['skill', 'name', 'skillName']);
 
-      if (!skill || skill.level < requirement.requiredLevel) {
+      if (!name) {
         return [];
       }
 
       return [
         {
-          category: requirement.category,
-          id: requirement.id,
-          name: requirement.name,
-          requiredLevel: requirement.requiredLevel,
-          userLevel: skill.level,
-          weight: requirement.weight
+          category: 'growth',
+          id: this.readString(gap, ['skillId', 'id']) ?? `gap-${index}-${this.slugify(name)}`,
+          name,
+          requiredLevel: this.readNumber(gap, ['requiredLevel', 'targetLevel', 'required']),
+          userLevel: this.readNumber(gap, ['currentLevel', 'current'])
         }
       ];
     });
   }
 
-  private getMissingSkills(request: IApplicationMatchRequest): IMatchSkill[] {
-    return ROLE_REQUIREMENTS.flatMap((requirement) => {
-      const skill = request.talentProfile.skills.find((item) => item.id === requirement.id);
+  private readString(value: Record<string, unknown>, keys: string[]): string | undefined {
+    const candidate = keys.map((key) => value[key]).find((item) => typeof item === 'string');
+    return typeof candidate === 'string' && candidate.trim() ? candidate.trim() : undefined;
+  }
 
-      if (skill && skill.level >= requirement.requiredLevel) {
-        return [];
-      }
+  private readNumber(value: Record<string, unknown>, keys: string[]): number | undefined {
+    const candidate = keys.map((key) => value[key]).find((item) => typeof item === 'number');
+    return typeof candidate === 'number' ? candidate : undefined;
+  }
 
-      return [
-        {
-          category: requirement.category,
-          id: requirement.id,
-          name: requirement.name,
-          requiredLevel: requirement.requiredLevel,
-          userLevel: skill?.level ?? 0,
-          weight: requirement.weight
-        }
-      ];
-    });
+  private slugify(value: string): string {
+    return value.toLocaleLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+  }
+
+  private toPercentage(score: number | null): number {
+    if (score === null || Number.isNaN(score)) {
+      return 0;
+    }
+
+    return Math.round(Math.min(100, Math.max(0, score <= 1 ? score * 100 : score)));
   }
 }

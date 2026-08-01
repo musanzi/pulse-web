@@ -2,7 +2,14 @@ import { registerLocaleData } from '@angular/common';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import localeFr from '@angular/common/locales/fr';
 import { provideTransloco, translocoConfig } from '@jsverse/transloco';
-import { ApplicationConfig, isDevMode, LOCALE_ID, provideBrowserGlobalErrorListeners } from '@angular/core';
+import {
+  ApplicationConfig,
+  inject,
+  isDevMode,
+  LOCALE_ID,
+  provideBrowserGlobalErrorListeners,
+  REQUEST
+} from '@angular/core';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { provideClientHydration } from '@angular/platform-browser';
@@ -18,7 +25,13 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideHttpClient(withInterceptors([httpInterceptor])),
-    { provide: APP_URL, useValue: environment.appUrl },
+    {
+      provide: APP_URL,
+      useFactory: () => {
+        const request = inject(REQUEST, { optional: true });
+        return request ? new URL(request.url).origin : environment.appUrl;
+      }
+    },
     provideTransloco({
       config: translocoConfig({
         availableLangs: ['fr', 'en'],

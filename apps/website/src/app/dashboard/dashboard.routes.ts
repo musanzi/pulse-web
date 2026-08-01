@@ -16,5 +16,9 @@ export const dashboardRoutes: Routes = [
   {
     path: '',
     loadChildren: () => import('./features/messaging/messaging.routes').then((r) => r.messagingRoutes)
+  },
+  {
+    path: '',
+    loadChildren: () => import('./features/beta-feedback/beta-feedback.routes').then((r) => r.betaFeedbackRoutes)
   }
 ];

@@ -4,6 +4,8 @@ import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { catchError, finalize, of, pipe, switchMap, tap } from 'rxjs';
 import { IApplicationMatchRequest, IApplicationMatchState } from '../interfaces';
 import { ApplicationMatchService } from './application-match.service';
+import { TalentProfileAdapter } from './talent-profile.adapter';
+import { TalentProfileService } from './talent-profile.service';
 
 const initialState: IApplicationMatchState = {
   error: null,
@@ -15,20 +17,29 @@ const initialState: IApplicationMatchState = {
 export const ApplicationMatchStore = signalStore(
   withState(initialState),
   withProps(() => ({
-    applicationMatchService: inject(ApplicationMatchService)
+    applicationMatchService: inject(ApplicationMatchService),
+    talentProfileAdapter: inject(TalentProfileAdapter),
+    talentProfileService: inject(TalentProfileService)
   })),
-  withMethods(({ applicationMatchService, ...store }) => ({
+  withMethods(({ applicationMatchService, talentProfileAdapter, talentProfileService, ...store }) => ({
     loadMatchResult: rxMethod<IApplicationMatchRequest>(
       pipe(
-        tap((request) =>
+        tap(() =>
           patchState(store, {
             error: null,
             loading: true,
-            talentProfile: request.talentProfile
+            matchResult: null,
+            talentProfile: null
           })
         ),
         switchMap((request) =>
-          applicationMatchService.loadMatchResult(request).pipe(
+          talentProfileService.loadMyProfile().pipe(
+            switchMap((apiProfile) => {
+              const talentProfile = talentProfileAdapter.fromApi(apiProfile);
+              patchState(store, { talentProfile });
+
+              return applicationMatchService.loadMatchResult(request, talentProfile);
+            }),
             tap((matchResult) => patchState(store, { matchResult })),
             catchError(() => {
               patchState(store, {

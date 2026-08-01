@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { MatCard, MatCardContent } from '@angular/material/card';
 import { MatIcon } from '@angular/material/icon';
@@ -6,6 +6,7 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { catchError, of } from 'rxjs';
 import { TalentProfileDirectoryService } from '../../data-access';
 
 @Component({
@@ -17,8 +18,15 @@ export class TalentProfileDetail {
   private readonly route = inject(ActivatedRoute);
   private readonly talentProfileDirectory = inject(TalentProfileDirectoryService);
   private readonly talentProfileId = this.route.snapshot.paramMap.get('talentProfileId') ?? 'talent-123';
+  protected readonly unavailable = signal(false);
 
-  protected readonly profile = toSignal(this.talentProfileDirectory.findById(this.talentProfileId), {
-    initialValue: null
-  });
+  protected readonly profile = toSignal(
+    this.talentProfileDirectory.findById(this.talentProfileId).pipe(
+      catchError(() => {
+        this.unavailable.set(true);
+        return of(null);
+      })
+    ),
+    { initialValue: null }
+  );
 }

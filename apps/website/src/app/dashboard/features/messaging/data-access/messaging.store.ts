@@ -8,7 +8,7 @@ import { MessagingService } from './messaging.service';
 const initialState: IMessagingState = {
   activeConversationId: null,
   conversations: [],
-  currentUserId: 'talent-current',
+  currentUserId: '',
   error: null,
   loadingConversations: false,
   loadingMessages: false,
@@ -34,7 +34,7 @@ export const MessagingStore = signalStore(
               patchState(store, {
                 activeConversationId: workspace.activeConversationId,
                 conversations: workspace.conversations,
-                currentUserId: messagingService.currentUserId,
+                currentUserId: workspace.currentUserId,
                 messages: workspace.messages
               })
             ),

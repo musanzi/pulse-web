@@ -19,6 +19,12 @@ export const NAVIGATION: INavigationItem[] = [
         icon: 'chart-no-axes-combined'
       },
       {
+        id: 'beta-feedback',
+        label: 'admin.navigation.general.betaFeedback',
+        route: '/dashboard/beta-feedback',
+        icon: 'clipboard-list'
+      },
+      {
         id: 'roles',
         label: 'admin.navigation.general.roles',
         route: '/roles',

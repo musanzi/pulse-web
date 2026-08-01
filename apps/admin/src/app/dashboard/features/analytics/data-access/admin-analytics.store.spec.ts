@@ -1,32 +1,43 @@
 import '@angular/compiler';
+import { HttpClient } from '@angular/common/http';
 import { createEnvironmentInjector, runInInjectionContext } from '@angular/core';
+import { of } from 'rxjs';
 import { describe, expect, it, vi } from 'vitest';
 import { AdminAnalyticsService } from './admin-analytics.service';
 import { AdminAnalyticsStore } from './admin-analytics.store';
 
 describe('AdminAnalyticsStore', () => {
-  it('loads a mock analytics snapshot and reacts to range changes', async () => {
-    vi.useFakeTimers();
-    const injector = createEnvironmentInjector([AdminAnalyticsService]);
+  it('maps the stats API without filling unsupported analytics with mock data', () => {
+    const http = {
+      get: vi.fn(() =>
+        of([
+          { label: 'Utilisateurs', total: 1284 },
+          { label: 'Roles', total: 4 }
+        ])
+      )
+    };
+    const injector = createEnvironmentInjector([
+      { provide: HttpClient, useValue: http },
+      AdminAnalyticsService
+    ]);
     const store = runInInjectionContext(injector, () => new AdminAnalyticsStore());
 
     store.loadAnalytics({ range: '30d' });
-    await vi.advanceTimersByTimeAsync(300);
 
+    expect(http.get).toHaveBeenCalledWith('/stats');
     expect(store.loading()).toBe(false);
-    expect(store.data()?.source).toBe('mock');
-    expect(store.data()?.metrics).toHaveLength(4);
-    expect(store.data()?.programs[0]?.talentProfileRoute).toContain('/dashboard/talent/');
+    expect(store.data()?.source).toBe('api');
+    expect(store.data()?.metrics.map((metric) => metric.value)).toEqual([1284, 4]);
+    expect(store.data()?.programs).toEqual([]);
+    expect(store.data()?.usage).toEqual([]);
+    expect(store.data()?.reports).toEqual([]);
 
-    const monthlyActiveTalents = store.data()?.metrics[0]?.value ?? 0;
     store.setRange('7d');
-    await vi.advanceTimersByTimeAsync(300);
 
+    expect(http.get).toHaveBeenCalledTimes(2);
     expect(store.range()).toBe('7d');
     expect(store.data()?.range).toBe('7d');
-    expect(store.data()?.metrics[0]?.value).toBeLessThan(monthlyActiveTalents);
 
     injector.destroy();
-    vi.useRealTimers();
   });
 });

@@ -1,0 +1,127 @@
+<section
+  class="overflow-hidden rounded-lg border border-neutral-200 bg-white shadow-sm dark:border-neutral-800 dark:bg-neutral-900">
+  <div class="border-b border-neutral-200 px-5 py-4 dark:border-neutral-800">
+    <div class="flex items-center justify-between gap-4">
+      <div>
+        <h2 class="text-base font-semibold text-neutral-950 dark:text-white">
+          {{ 'betaFeedback.form.title' | transloco }}
+        </h2>
+        <p class="mt-1 text-sm text-neutral-500 dark:text-neutral-400">
+          {{ 'betaFeedback.form.description' | transloco }}
+        </p>
+      </div>
+      <span
+        class="shrink-0 rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-1 text-xs font-semibold text-emerald-700 dark:border-emerald-900/60 dark:bg-emerald-950/30 dark:text-emerald-300">
+        {{ 'betaFeedback.form.betaBadge' | transloco }}
+      </span>
+    </div>
+  </div>
+
+  @if (submitted()) {
+  <div class="grid min-h-80 place-items-center px-5 py-10 text-center">
+    <div class="max-w-md">
+      <div
+        class="mx-auto grid size-12 place-items-center rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-950/50 dark:text-emerald-300">
+        <mat-icon svgIcon="check"></mat-icon>
+      </div>
+      <h3 class="mt-4 text-lg font-semibold text-neutral-950 dark:text-white">
+        {{ 'betaFeedback.success.title' | transloco }}
+      </h3>
+      <p class="mt-2 text-sm text-neutral-500 dark:text-neutral-400">
+        {{ 'betaFeedback.success.description' | transloco }}
+      </p>
+      <button class="mt-5" matButton="outlined" type="button" (click)="startAnother()">
+        {{ 'betaFeedback.success.another' | transloco }}
+      </button>
+    </div>
+  </div>
+  } @else {
+  <form class="grid gap-5 p-5 sm:p-6" [formGroup]="form" (ngSubmit)="submit()">
+    <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+      <mat-form-field appearance="outline">
+        <mat-label>{{ 'betaFeedback.form.role' | transloco }}</mat-label>
+        <mat-select formControlName="role">
+          @for (role of roles; track role) {
+          <mat-option [value]="role">{{ ('betaFeedback.roles.' + role) | transloco }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>{{ 'betaFeedback.form.category' | transloco }}</mat-label>
+        <mat-select formControlName="category">
+          @for (category of categories; track category) {
+          <mat-option [value]="category">{{ ('betaFeedback.categories.' + category) | transloco }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>{{ 'betaFeedback.form.journey' | transloco }}</mat-label>
+        <mat-select formControlName="route">
+          @for (journey of testedJourneys; track journey.route) {
+          <mat-option [value]="journey.route"> {{ ('betaFeedback.journeys.' + journey.key) | transloco }} </mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <fieldset>
+      <legend class="mb-2 text-sm font-medium text-neutral-700 dark:text-neutral-300">
+        {{ 'betaFeedback.form.rating' | transloco }}
+      </legend>
+      <mat-button-toggle-group
+        class="w-full"
+        formControlName="rating"
+        hideSingleSelectionIndicator
+        [attr.aria-label]="'betaFeedback.form.rating' | transloco">
+        @for (rating of ratings; track rating) {
+        <mat-button-toggle class="flex-1" [value]="rating">{{ rating }}</mat-button-toggle>
+        }
+      </mat-button-toggle-group>
+      <div class="mt-1 flex justify-between text-xs text-neutral-400">
+        <span>{{ 'betaFeedback.form.ratingLow' | transloco }}</span>
+        <span>{{ 'betaFeedback.form.ratingHigh' | transloco }}</span>
+      </div>
+    </fieldset>
+
+    <mat-form-field appearance="outline">
+      <mat-label>{{ 'betaFeedback.form.details' | transloco }}</mat-label>
+      <textarea
+        matInput
+        formControlName="details"
+        maxlength="2000"
+        rows="6"
+        [placeholder]="'betaFeedback.form.detailsPlaceholder' | transloco"></textarea>
+      <mat-hint align="end">{{ form.controls.details.value.length }}/2000</mat-hint>
+    </mat-form-field>
+
+    <div class="rounded-md border border-neutral-200 bg-neutral-50 p-4 dark:border-neutral-800 dark:bg-neutral-950/40">
+      <mat-checkbox formControlName="contactAllowed">
+        {{ 'betaFeedback.form.contactAllowed' | transloco }}
+      </mat-checkbox>
+
+      @if (form.controls.contactAllowed.value) {
+      <mat-form-field class="mt-3 w-full" appearance="outline">
+        <mat-label>{{ 'betaFeedback.form.email' | transloco }}</mat-label>
+        <input matInput formControlName="contactEmail" type="email" />
+      </mat-form-field>
+      }
+    </div>
+
+    @if (error(); as errorKey) {
+    <div
+      class="rounded-md border border-error-200 bg-error-50 px-4 py-3 text-sm text-error-700 dark:border-error-900/60 dark:bg-error-950/30 dark:text-error-300">
+      {{ errorKey | transloco }}
+    </div>
+    }
+
+    <div class="flex justify-end">
+      <button matButton="filled" type="submit" [disabled]="form.invalid || submitting()">
+        <mat-icon svgIcon="send"></mat-icon>
+        {{ (submitting() ? 'betaFeedback.form.submitting' : 'betaFeedback.form.submit') | transloco }}
+      </button>
+    </div>
+  </form>
+  }
+</section>

@@ -55,12 +55,54 @@
     "navigation": {
       "general": {
         "analytics": "Analytics",
+        "betaFeedback": "Beta feedback",
         "dashboard": "Dashboard",
         "description": "Resource management",
         "label": "General",
         "roles": "Roles",
         "users": "Users"
       }
+    },
+    "betaFeedback": {
+      "description": "Triage active beta observations and move validated findings into the delivery queue.",
+      "empty": {
+        "description": "New submissions will appear here as soon as beta testers send them.",
+        "title": "No feedback matches these filters"
+      },
+      "errors": {
+        "load": "Unable to load the beta feedback log",
+        "update": "Unable to update the feedback status"
+      },
+      "eyebrow": "Beta operations",
+      "filters": {
+        "allCategories": "All categories",
+        "allStatuses": "All statuses",
+        "category": "Category",
+        "status": "Status"
+      },
+      "loading": "Loading beta feedback...",
+      "logTitle": "Feedback log",
+      "metrics": {
+        "new": "Awaiting triage",
+        "rating": "Average rating",
+        "resolved": "Resolved",
+        "total": "Total submissions"
+      },
+      "refresh": "Refresh",
+      "status": {
+        "new": "New",
+        "planned": "Planned",
+        "resolved": "Resolved",
+        "reviewing": "Reviewing"
+      },
+      "table": {
+        "feedback": "Observation",
+        "rating": "Rating",
+        "received": "Received",
+        "status": "Status",
+        "tester": "Tester context"
+      },
+      "title": "Beta feedback log"
     },
     "analytics": {
       "description": "Monitor program health, platform engagement, and reporting readiness across DigiPulse.",
@@ -69,13 +111,19 @@
       },
       "eyebrow": "Program intelligence",
       "loading": "Preparing the analytics workspace...",
+      "apiSource": "Live API data",
       "metrics": {
         "activeTalents": "Active talents",
         "aiMatches": "AI matches generated",
         "collaborations": "Collaboration messages",
-        "completionRate": "Quest completion rate"
+        "completionRate": "Quest completion rate",
+        "platformRecords": "Platform records",
+        "roles": "Roles",
+        "users": "Users"
       },
       "mockSource": "Mock data",
+      "partialApiDescription": "The current backend exposes aggregate user and role totals. Usage series, program oversight, and report endpoints are not available yet.",
+      "partialApiTitle": "Additional analytics are awaiting API support",
       "programs": {
         "coordinator": "Coordinator",
         "description": "Track delivery progress and open the talent evidence behind each project.",
@@ -136,6 +184,7 @@
     "routes": {
       "analytics": "Analytics",
       "auth": "Authentication",
+      "betaFeedback": "Beta feedback",
       "forgotPassword": "Forgot password",
       "forgotPasswordSent": "Link sent",
       "locked": "Restricted access",
@@ -227,6 +276,56 @@
       "title": "Sign up"
     }
   },
+  "betaFeedback": {
+    "categories": {
+      "accessibility": "Accessibility",
+      "ai-match": "AI matching",
+      "messaging": "Messaging",
+      "other": "Other",
+      "performance": "Performance",
+      "usability": "Usability"
+    },
+    "description": "Share one concrete observation from your beta session so the team can prioritize the next improvement.",
+    "errors": {
+      "submit": "Your feedback could not be submitted. Please try again."
+    },
+    "eyebrow": "Week 5 beta",
+    "form": {
+      "betaBadge": "Beta channel",
+      "category": "Area tested",
+      "contactAllowed": "The team may contact me to clarify this feedback",
+      "description": "Capture what happened, where it happened, and how the experience felt.",
+      "details": "What did you notice?",
+      "detailsPlaceholder": "Describe the task, what you expected, and what happened...",
+      "email": "Contact email",
+      "journey": "Journey tested",
+      "rating": "Overall experience",
+      "ratingHigh": "Excellent",
+      "ratingLow": "Blocked",
+      "role": "I tested as",
+      "submit": "Send feedback",
+      "submitting": "Sending...",
+      "title": "Session feedback"
+    },
+    "journeys": {
+      "applications": "AI match and applications",
+      "messaging": "Messaging and collaboration",
+      "peer-reviews": "Peer reviews",
+      "profile": "Talent profile",
+      "skills-gap": "Skills gap"
+    },
+    "roles": {
+      "coordinator": "Coordinator",
+      "employer": "Employer",
+      "talent": "Talent"
+    },
+    "success": {
+      "another": "Add another observation",
+      "description": "Your observation is now available in the admin feedback log for triage.",
+      "title": "Feedback received"
+    },
+    "title": "Help shape the next DigiPulse iteration"
+  },
   "common": {
     "active": "Active",
     "actions": "Actions",
@@ -252,6 +351,7 @@
   },
   "applications": {
     "dashboard": {
+      "apiProfile": "Live API profile",
       "demoProfile": "Demo profile",
       "description": "See how your talent evidence aligns with the role and where one focused quest can improve your fit.",
       "eyebrow": "AI match intelligence",
@@ -268,6 +368,8 @@
       "growthConfidence": "Growth fit",
       "highConfidence": "High fit",
       "loadFailed": "Unable to load the AI match review",
+      "apiHeadline": "AI recommendation ready",
+      "apiSummaryFallback": "OpenRouter has generated a recommendation from your current profile and available quests.",
       "mockHeadline": "Strong fit for this role",
       "mockSummary": "Your profile overlaps with the role's core data workflow, with one focused growth area before you submit stronger project evidence.",
       "overlapTitle": "Matched skills",
@@ -281,6 +383,10 @@
       "description": "Review the evidence behind this recommendation.",
       "growthTitle": "Growth space",
       "growthAreaMetric": "Suggested next step",
+      "apiGrowthDescription": "These skills were returned by the recommendation engine as focused growth areas.",
+      "apiGrowthTitle": "Recommended growth focus",
+      "apiReasonFallback": "The recommendation engine did not provide a written explanation.",
+      "apiReasonTitle": "OpenRouter recommendation rationale",
       "mockGrowthAreaDescription": "Dashboard storytelling is the clearest skill to improve before the next application checkpoint.",
       "mockGrowthAreaTitle": "One growth area",
       "mockProjectFitDescription": "Your submitted projects map to the same data cleaning and analysis workflow used by this role.",
@@ -366,6 +472,7 @@
       "security": "Password"
     },
     "applications": "Applications",
+    "betaFeedback": "Beta feedback",
     "messaging": "Messaging",
     "peerReviews": "Peer Reviews"
   },
@@ -389,11 +496,15 @@
       "send": "Unable to send the message"
     },
     "eyebrow": "Collaboration hub",
+    "apiSource": "Live API conversation",
+    "conversationFallback": "Direct conversation",
     "mockSource": "Mock conversation",
+    "participantFallback": "Participant",
     "presence": "Collaboration network online",
     "roles": {
       "coordinator": "Coordinator",
       "employer": "Employer",
+      "participant": "Participant",
       "talent": "Talent"
     },
     "thread": {
@@ -427,14 +538,20 @@
     "description": "Manage your account information and password.",
     "directory": {
       "about": "About",
+      "apiSource": "Live API profile",
       "availability": {
         "limited": "Limited availability",
         "open": "Open to projects"
       },
+      "availabilityHours": "{{hours}} hours per week",
+      "availabilityUnavailable": "Availability not provided",
       "mockSource": "Mock profile",
       "projects": "Project evidence",
-      "skills": "Verified skill profile",
-      "startConversation": "Start conversation"
+      "projectsUnavailable": "The current talent profile API does not expose project evidence.",
+      "skills": "Profile skills",
+      "startConversation": "Start conversation",
+      "unavailableDescription": "The current backend only exposes the signed-in user's profile. A talent lookup endpoint is required for administrator drill-down.",
+      "unavailableTitle": "This talent profile is not available through the API"
     },
     "security": {
       "description": "Choose a new password, then confirm it before saving.",
@@ -463,6 +580,7 @@
     "account": "Account",
     "applications": "Applications",
     "auth": "Authentication",
+    "betaFeedback": "Beta feedback",
     "forgotPassword": "Forgot password",
     "forgotPasswordSent": "Link sent",
     "home": "Home",

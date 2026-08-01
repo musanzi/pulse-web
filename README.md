@@ -251,6 +251,24 @@ dist/website/server/server.mjs
 dist/admin/server/server.mjs
 ```
 
+## Week 5 Beta Deployment
+
+The beta stack runs both SSR applications behind Caddy and persists active user feedback in a Docker volume:
+
+```bash
+pnpm beta:up
+```
+
+Open `http://app.localhost` for the Website and `http://admin.localhost` for Admin. Use `/dashboard/feedback` to submit a beta observation and `/dashboard/beta-feedback` to triage the shared feedback log.
+
+Hosted environments can copy `.env.beta.example` to `.env.beta`, set the assigned Website and Admin domains, and run:
+
+```bash
+docker compose --env-file .env.beta -f compose.beta.yml up --build -d
+```
+
+Caddy provisions HTTPS automatically for resolvable public domains. The complete test protocol and tracking template are in `docs/week-5-beta-test-log.md`.
+
 ## Development Notes
 
 - Prefer adding shared, framework-level behavior to `libs/core`.

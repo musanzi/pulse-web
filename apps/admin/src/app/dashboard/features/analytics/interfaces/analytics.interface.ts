@@ -48,3 +48,8 @@ export interface IAdminAnalyticsSnapshot {
   programs: IProgramOversightRow[];
   reports: IAnalyticsReport[];
 }
+
+export interface IStatItemApiResponse {
+  label: string;
+  total: number;
+}

@@ -1,7 +1,7 @@
 import { IAiMatchMetadata, IMatchScoreBreakdown } from './match-model.interface';
 
 export interface IMatchInsight {
-  applicationId: string;
+  applicationId: string | null;
   talentProfileId: string;
   roleId: string;
   roleTitle: string;
@@ -11,7 +11,9 @@ export interface IMatchInsight {
   confidence: 'low' | 'medium' | 'high';
   status: 'queued' | 'reviewing' | 'ready';
   headlineKey: string;
+  headline?: string;
   summaryKey: string;
+  summary?: string;
   reviewEtaKey: string;
   matchedSkills: IMatchSkill[];
   missingSkills: IMatchSkill[];
@@ -33,10 +35,42 @@ export interface IMatchRationale {
   id: string;
   icon: string;
   titleKey: string;
+  title?: string;
   descriptionKey: string;
+  description?: string;
   metricLabelKey?: string;
   metricValue?: string;
   evidenceSkillIds: string[];
+}
+
+export interface IRecommendationApiResponse {
+  id: string;
+  userId: string;
+  type: 'QUEST' | 'LEARNING_PATH' | string;
+  questId: string | null;
+  targetRoleId: string | null;
+  score: number | null;
+  reason: string;
+  skillGaps: Record<string, unknown>[] | null;
+  modelVersion: string;
+  status: 'SUGGESTED' | 'ACCEPTED' | 'DISMISSED' | string;
+  steps?: ILearningPathStepApiResponse[];
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface ILearningPathStepApiResponse {
+  id: string;
+  recommendationId: string;
+  stepOrder: number;
+  type: string;
+  questId: string | null;
+  skillId: string | null;
+  title: string;
+  note: string | null;
+  isCompleted: boolean;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface IMatchNextAction {
