@@ -255,11 +255,32 @@ dist/admin/server/server.mjs
 
 The beta stack runs both SSR applications behind Caddy and persists active user feedback in a Docker volume:
 
+Create the local deployment environment and replace the admin token before first start:
+
+```powershell
+Copy-Item .env.beta.example .env.beta
+```
+
 ```bash
 pnpm beta:up
 ```
 
 Open `http://app.localhost` for the Website and `http://admin.localhost` for Admin. Use `/dashboard/feedback` to submit a beta observation and `/dashboard/beta-feedback` to triage the shared feedback log.
+
+`BETA_ADMIN_TOKEN` is required and Compose fails closed when it is absent. Caddy injects this token only on the Admin feedback route; production feedback reads and updates without it are rejected.
+
+Run the complete release-candidate gate with:
+
+```bash
+pnpm verify
+```
+
+Week 6-8 delivery evidence is maintained in:
+
+- `docs/week-6-refinement-log.md`
+- `docs/week-7-validation-and-launch.md`
+- `docs/week-8-mvp-and-future-roadmap.md`
+- `docs/week-8-release-candidate-report.md`
 
 Hosted environments can copy `.env.beta.example` to `.env.beta`, set the assigned Website and Admin domains, and run:
 

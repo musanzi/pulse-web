@@ -41,7 +41,9 @@
 	import security
 
 	handle /beta-api/* {
-		reverse_proxy website:4200
+		reverse_proxy website:4200 {
+			header_up X-Beta-Admin-Token {$BETA_ADMIN_TOKEN}
+		}
 	}
 
 	handle_path /api/* {

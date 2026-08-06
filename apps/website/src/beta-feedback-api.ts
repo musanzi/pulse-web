@@ -1,5 +1,6 @@
 import { randomUUID } from 'node:crypto';
-import { mkdir, readFile, rename, writeFile } from 'node:fs/promises';
+import { constants } from 'node:fs';
+import { access, mkdir, readFile, rename, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import {
   BetaFeedbackCategory,
@@ -22,17 +23,16 @@ const categories: BetaFeedbackCategory[] = [
 ];
 const roles: BetaFeedbackRole[] = ['coordinator', 'employer', 'talent'];
 const statuses: BetaFeedbackStatus[] = ['new', 'planned', 'resolved', 'reviewing'];
-const feedbackFile = resolve(process.env['FEEDBACK_DATA_FILE'] ?? 'data/beta-feedback.json');
-let mutationQueue = Promise.resolve();
+const mutationQueues = new Map<string, Promise<void>>();
 
-export function createBetaFeedbackRouter(): express.Router {
+export function createBetaFeedbackRouter(feedbackFile = getFeedbackFile()): express.Router {
   const router = express.Router();
 
   router.use(express.json({ limit: '16kb' }));
 
   router.get('/feedback', async (_request, response, next) => {
     try {
-      const payload: IBetaFeedbackCollection = { items: await readFeedback() };
+      const payload: IBetaFeedbackCollection = { items: await readFeedback(feedbackFile) };
       response.json(payload);
     } catch (error) {
       next(error);
@@ -52,7 +52,7 @@ export function createBetaFeedbackRouter(): express.Router {
         updatedAt: now
       };
 
-      await mutateFeedback((records) => [record, ...records]);
+      await mutateFeedback(feedbackFile, (records) => [record, ...records]);
       response.status(201).json(record);
     } catch (error) {
       if (error instanceof TypeError) {
@@ -69,7 +69,7 @@ export function createBetaFeedbackRouter(): express.Router {
       const update = parseUpdate(request.body);
       let updatedRecord: IBetaFeedbackRecord | null = null;
 
-      await mutateFeedback((records) =>
+      await mutateFeedback(feedbackFile, (records) =>
         records.map((record) => {
           if (record.id !== request.params['id']) {
             return record;
@@ -103,20 +103,33 @@ export function createBetaFeedbackRouter(): express.Router {
   return router;
 }
 
-async function mutateFeedback(mutate: (records: IBetaFeedbackRecord[]) => IBetaFeedbackRecord[]): Promise<void> {
+export async function ensureBetaFeedbackStorage(feedbackFile = getFeedbackFile()): Promise<void> {
+  const directory = dirname(feedbackFile);
+  await mkdir(directory, { recursive: true });
+  await access(directory, constants.W_OK);
+}
+
+async function mutateFeedback(
+  feedbackFile: string,
+  mutate: (records: IBetaFeedbackRecord[]) => IBetaFeedbackRecord[]
+): Promise<void> {
+  const mutationQueue = mutationQueues.get(feedbackFile) ?? Promise.resolve();
   const operation = mutationQueue.then(async () => {
-    const records = mutate(await readFeedback());
+    const records = mutate(await readFeedback(feedbackFile));
     await mkdir(dirname(feedbackFile), { recursive: true });
     const temporaryFile = `${feedbackFile}.tmp`;
     await writeFile(temporaryFile, JSON.stringify(records, null, 2), 'utf8');
     await rename(temporaryFile, feedbackFile);
   });
 
-  mutationQueue = operation.catch(() => undefined);
+  mutationQueues.set(
+    feedbackFile,
+    operation.catch(() => undefined)
+  );
   return operation;
 }
 
-async function readFeedback(): Promise<IBetaFeedbackRecord[]> {
+async function readFeedback(feedbackFile: string): Promise<IBetaFeedbackRecord[]> {
   try {
     const content = await readFile(feedbackFile, 'utf8');
     const records = JSON.parse(content) as IBetaFeedbackRecord[];
@@ -128,6 +141,10 @@ async function readFeedback(): Promise<IBetaFeedbackRecord[]> {
 
     throw error;
   }
+}
+
+function getFeedbackFile(): string {
+  return resolve(process.env['FEEDBACK_DATA_FILE'] ?? 'data/beta-feedback.json');
 }
 
 function parseSubmission(value: unknown): IBetaFeedbackSubmission {

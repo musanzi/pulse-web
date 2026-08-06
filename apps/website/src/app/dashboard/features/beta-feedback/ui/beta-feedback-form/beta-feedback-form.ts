@@ -1,4 +1,4 @@
-import { Component, input, output } from '@angular/core';
+import { Component, effect, input, output } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatButtonToggle, MatButtonToggleGroup } from '@angular/material/button-toggle';
@@ -30,6 +30,7 @@ import { BetaFeedbackCategory, BetaFeedbackRole, IBetaFeedbackSubmission } from 
 })
 export class BetaFeedbackForm {
   readonly error = input<string | null>(null);
+  readonly initialRoute = input('/dashboard/applications');
   readonly submitted = input(false);
   readonly submitting = input(false);
   readonly feedbackSubmitted = output<IBetaFeedbackSubmission>();
@@ -68,6 +69,10 @@ export class BetaFeedbackForm {
     route: new FormControl('/dashboard/applications', { nonNullable: true })
   });
 
+  constructor() {
+    effect(() => this.form.controls.route.setValue(this.initialRoute(), { emitEvent: false }));
+  }
+
   protected submit(): void {
     this.form.markAllAsTouched();
     if (this.form.invalid || this.submitting()) {
@@ -94,7 +99,7 @@ export class BetaFeedbackForm {
       details: '',
       rating: 4,
       role: 'talent',
-      route: '/dashboard/applications'
+      route: this.initialRoute()
     });
     this.newFeedbackRequested.emit();
   }

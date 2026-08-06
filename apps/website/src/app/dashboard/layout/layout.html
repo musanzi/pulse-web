@@ -18,6 +18,16 @@
       <div class="flex-auto"></div>
 
       <div class="flex items-center gap-x-2">
+        @if (showFeedbackShortcut()) {
+        <a
+          matIconButton
+          routerLink="/dashboard/feedback"
+          [queryParams]="{ journey: feedbackJourney() }"
+          [attr.aria-label]="'betaFeedback.shortcut.label' | transloco"
+          [matTooltip]="'betaFeedback.shortcut.label' | transloco">
+          <mat-icon svgIcon="message-square-more" />
+        </a>
+        }
         <ui-language-switcher />
         <ui-scheme-switcher
           [labels]="{

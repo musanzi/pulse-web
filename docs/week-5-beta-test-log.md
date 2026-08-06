@@ -12,9 +12,12 @@
 ## Start the beta environment
 
 ```bash
+cp .env.beta.example .env.beta
 pnpm beta:up
-docker compose -f compose.beta.yml ps
+docker compose --env-file .env.beta -f compose.beta.yml ps
 ```
+
+Replace `BETA_ADMIN_TOKEN` in `.env.beta` before starting the stack. The Compose configuration intentionally refuses to start without an explicit token.
 
 For a hosted beta, copy `.env.beta.example` to `.env.beta`, replace the `.localhost` values with the assigned DNS names, and start with:
 

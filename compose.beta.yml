@@ -11,6 +11,7 @@ services:
     environment:
       ADMIN_ADDRESS: ${ADMIN_ADDRESS:-http://admin.localhost}
       API_UPSTREAM: ${API_UPSTREAM:-host.docker.internal:8000}
+      BETA_ADMIN_TOKEN: ${BETA_ADMIN_TOKEN:?Set BETA_ADMIN_TOKEN in .env.beta}
       WEBSITE_ADDRESS: ${WEBSITE_ADDRESS:-http://app.localhost}
     extra_hosts:
       - 'host.docker.internal:host-gateway'
@@ -31,6 +32,7 @@ services:
     environment:
       ALLOWED_HOSTS: ${WEBSITE_HOST:-app.localhost}
       BETA_ADMIN_HOSTS: ${ADMIN_HOST:-admin.localhost}
+      BETA_ADMIN_TOKEN: ${BETA_ADMIN_TOKEN:?Set BETA_ADMIN_TOKEN in .env.beta}
       BETA_ALLOWED_ORIGINS: ${ADMIN_ORIGIN:-http://admin.localhost}
       FEEDBACK_DATA_FILE: /app/data/beta-feedback.json
       PORT: 4200
@@ -39,7 +41,7 @@ services:
     volumes:
       - beta-feedback-data:/app/data
     healthcheck:
-      test: ['CMD', 'wget', '-q', '--spider', 'http://localhost:4200/healthz']
+      test: ['CMD', 'wget', '-q', '--spider', 'http://localhost:4200/readyz']
       interval: 10s
       timeout: 3s
       retries: 5
@@ -57,7 +59,7 @@ services:
     expose:
       - '4300'
     healthcheck:
-      test: ['CMD', 'wget', '-q', '--spider', 'http://localhost:4300/healthz']
+      test: ['CMD', 'wget', '-q', '--spider', 'http://localhost:4300/readyz']
       interval: 10s
       timeout: 3s
       retries: 5

@@ -319,6 +319,9 @@
       "employer": "Employeur",
       "talent": "Talent"
     },
+    "shortcut": {
+      "label": "Donner un retour sur cette page"
+    },
     "success": {
       "another": "Ajouter une autre observation",
       "description": "Votre observation est maintenant disponible dans le journal admin pour analyse.",

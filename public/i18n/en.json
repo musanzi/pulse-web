@@ -319,6 +319,9 @@
       "employer": "Employer",
       "talent": "Talent"
     },
+    "shortcut": {
+      "label": "Give feedback on this page"
+    },
     "success": {
       "another": "Add another observation",
       "description": "Your observation is now available in the admin feedback log for triage.",

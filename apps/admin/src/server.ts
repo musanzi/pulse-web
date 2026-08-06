@@ -22,6 +22,10 @@ app.get('/healthz', (_request, response) => {
   response.status(200).json({ service: 'admin', status: 'ok' });
 });
 
+app.get('/readyz', (_request, response) => {
+  response.status(200).json({ service: 'admin', status: 'ready' });
+});
+
 /**
  * Serve static files from /browser
  */
