@@ -1,13 +1,21 @@
 import { registerLocaleData } from '@angular/common';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import localeFr from '@angular/common/locales/fr';
-import { ApplicationConfig, isDevMode, LOCALE_ID, provideBrowserGlobalErrorListeners } from '@angular/core';
+import {
+  ApplicationConfig,
+  inject,
+  isDevMode,
+  LOCALE_ID,
+  provideBrowserGlobalErrorListeners,
+  REQUEST
+} from '@angular/core';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { provideClientHydration } from '@angular/platform-browser';
 import { provideRouter, TitleStrategy, withComponentInputBinding, withInMemoryScrolling } from '@angular/router';
 import { provideTransloco, translocoConfig } from '@jsverse/transloco';
-import { provideIcons, provideTheming, TranslocoHttpLoader } from '@libs/core';
+import { APP_URL, provideIcons, provideTheming, TranslocoHttpLoader } from '@libs/core';
+import { environment } from '../environments/environment';
 import { provideApp } from './app.provider';
 import { routes } from './app.routes';
 import { httpInterceptor, PageTitleStrategy } from './shared';
@@ -17,6 +25,13 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideHttpClient(withInterceptors([httpInterceptor])),
+    {
+      provide: APP_URL,
+      useFactory: () => {
+        const request = inject(REQUEST, { optional: true });
+        return request ? new URL(request.url).origin : environment.appUrl;
+      }
+    },
     provideTransloco({
       config: translocoConfig({
         availableLangs: ['fr', 'en'],

@@ -1,6 +1,14 @@
 import { Routes } from '@angular/router';
+import { TalentProfileDirectoryService } from './data-access';
 
 export const profileRoutes: Routes = [
+  {
+    path: 'talent/:talentProfileId',
+    title: 'routes.talentProfile',
+    providers: [TalentProfileDirectoryService],
+    loadComponent: () =>
+      import('./pages/talent-profile/talent-profile').then((component) => component.TalentProfileDetail)
+  },
   {
     path: '',
     title: 'routes.profile',

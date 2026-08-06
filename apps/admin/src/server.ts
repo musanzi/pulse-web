@@ -10,21 +10,21 @@ import express from 'express';
 const browserDistFolder = join(import.meta.dirname, '../browser');
 
 const app = express();
+const allowedHosts = (process.env['ALLOWED_HOSTS'] ?? '*.localhost,localhost')
+  .split(',')
+  .map((host) => host.trim())
+  .filter(Boolean);
 const angularApp = new AngularNodeAppEngine({
-  allowedHosts: ['*.localhost', 'localhost']
+  allowedHosts
 });
 
-/**
- * Example Express Rest API endpoints can be defined here.
- * Uncomment and define endpoints as necessary.
- *
- * Example:
- * ```ts
- * app.get('/api/{*splat}', (req, res) => {
- *   // Handle API request
- * });
- * ```
- */
+app.get('/healthz', (_request, response) => {
+  response.status(200).json({ service: 'admin', status: 'ok' });
+});
+
+app.get('/readyz', (_request, response) => {
+  response.status(200).json({ service: 'admin', status: 'ready' });
+});
 
 /**
  * Serve static files from /browser

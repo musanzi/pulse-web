@@ -14,6 +14,12 @@ export const routes: Route[] = [
     loadChildren: () => import('./auth/auth.routes').then((r) => r.authRoutes)
   },
   {
+    path: 'dashboard',
+    canActivate: [authGuard],
+    loadComponent: () => import('./dashboard/layout/layout').then((c) => c.AdminLayout),
+    loadChildren: () => import('./dashboard/dashboard.routes').then((r) => r.dashboardRoutes)
+  },
+  {
     path: '',
     canActivate: [authGuard],
     loadComponent: () => import('./dashboard/layout/layout').then((c) => c.AdminLayout),

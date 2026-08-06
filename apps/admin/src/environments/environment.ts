@@ -1,3 +1,6 @@
 export const environment = {
-  apiUrl: 'https://api.com'
+  apiUrl: '/api',
+  appUrl: 'https://admin.app.com',
+  feedbackApiUrl: '/beta-api',
+  websiteUrl: 'https://app.com'
 };

@@ -1,0 +1,64 @@
+<div class="overflow-hidden rounded-lg border border-neutral-200 bg-white dark:border-neutral-800 dark:bg-neutral-900">
+  <div class="overflow-x-auto">
+    <table class="min-w-[64rem]" mat-table [dataSource]="entries()">
+      <ng-container matColumnDef="submittedAt">
+        <th mat-header-cell *matHeaderCellDef>{{ 'admin.betaFeedback.table.received' | transloco }}</th>
+        <td mat-cell *matCellDef="let row">
+          <span class="whitespace-nowrap text-xs text-neutral-500 dark:text-neutral-400">
+            {{ row.submittedAt | date: 'short' }}
+          </span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="tester">
+        <th mat-header-cell *matHeaderCellDef>{{ 'admin.betaFeedback.table.tester' | transloco }}</th>
+        <td mat-cell *matCellDef="let row">
+          <div class="text-sm font-medium text-neutral-900 dark:text-neutral-100">
+            {{ ('betaFeedback.roles.' + row.role) | transloco }}
+          </div>
+          <div class="mt-1 text-xs text-neutral-400">{{ row.route }}</div>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="feedback">
+        <th mat-header-cell *matHeaderCellDef>{{ 'admin.betaFeedback.table.feedback' | transloco }}</th>
+        <td class="max-w-md" mat-cell *matCellDef="let row">
+          <span
+            class="mb-1 inline-flex rounded-full bg-neutral-100 px-2 py-0.5 text-xs font-medium text-neutral-600 dark:bg-neutral-800 dark:text-neutral-300">
+            {{ ('betaFeedback.categories.' + row.category) | transloco }}
+          </span>
+          <p class="line-clamp-3 text-sm leading-5 text-neutral-700 dark:text-neutral-300">{{ row.details }}</p>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="rating">
+        <th mat-header-cell *matHeaderCellDef>{{ 'admin.betaFeedback.table.rating' | transloco }}</th>
+        <td mat-cell *matCellDef="let row">
+          <span class="font-semibold text-amber-700 dark:text-amber-300">{{ row.rating }}/5</span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef>{{ 'admin.betaFeedback.table.status' | transloco }}</th>
+        <td mat-cell *matCellDef="let row">
+          @if (updatingId() === row.id) {
+          <mat-spinner diameter="24"></mat-spinner>
+          } @else {
+          <mat-select
+            class="min-w-32 text-sm"
+            [value]="row.status"
+            [attr.aria-label]="'admin.betaFeedback.table.status' | transloco"
+            (selectionChange)="updateStatus(row.id, $event.value)">
+            @for (status of statuses; track status) {
+            <mat-option [value]="status">{{ ('admin.betaFeedback.status.' + status) | transloco }}</mat-option>
+            }
+          </mat-select>
+          }
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </div>
+</div>

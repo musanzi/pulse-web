@@ -1,13 +1,25 @@
 services:
   website:
-    container_name: pulse-admin
+    container_name: pulse-website
     build:
       context: .
       target: production
     restart: unless-stopped
-    command: pnpm ssr:website --host=0.0.0
+    command: node dist/website/server/server.mjs
+    environment:
+      ALLOWED_HOSTS: localhost
+      BETA_ADMIN_HOSTS: localhost
+      FEEDBACK_DATA_FILE: /app/data/beta-feedback.json
+      PORT: 4200
     ports:
       - '4200:4200'
+    volumes:
+      - beta-feedback-data:/app/data
+    healthcheck:
+      test: ['CMD', 'wget', '-q', '--spider', 'http://localhost:4200/healthz']
+      interval: 10s
+      timeout: 3s
+      retries: 5
 
   admin:
     container_name: pulse-admin
@@ -15,6 +27,17 @@ services:
       context: .
       target: production
     restart: unless-stopped
-    command: pnpm ssr:admin --host=0.0.0
+    command: node dist/admin/server/server.mjs
+    environment:
+      ALLOWED_HOSTS: localhost
+      PORT: 4300
     ports:
       - '4300:4300'
+    healthcheck:
+      test: ['CMD', 'wget', '-q', '--spider', 'http://localhost:4300/healthz']
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+volumes:
+  beta-feedback-data:

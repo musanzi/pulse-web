@@ -3,13 +3,16 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
 
 permissions:
   contents: read
 
 jobs:
   ci:
-    name: Lint and build
+    name: Production candidate verification
     runs-on: ubuntu-latest
     timeout-minutes: 20
 
@@ -36,5 +39,14 @@ jobs:
       - name: Lint apps
         run: pnpm lint
 
+      - name: Test apps
+        run: pnpm test
+
+      - name: Strict type check
+        run: pnpm typecheck
+
       - name: Build apps
         run: pnpm build
+
+      - name: Production runtime smoke
+        run: pnpm test:production

@@ -1,0 +1,47 @@
+<div class="mx-auto flex w-full max-w-[96rem] flex-col gap-4 p-3 sm:p-5 lg:p-6">
+  <header class="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+    <div>
+      <div class="flex items-center gap-2 text-sm font-semibold text-primary-600 dark:text-primary-400">
+        <mat-icon class="size-4" svgIcon="radio-tower"></mat-icon>
+        {{ 'messaging.eyebrow' | transloco }}
+      </div>
+      <h1 class="mt-1 text-2xl font-semibold text-neutral-950 dark:text-white sm:text-3xl">
+        {{ 'messaging.title' | transloco }}
+      </h1>
+      <p class="mt-1 max-w-2xl text-sm text-neutral-500 dark:text-neutral-400">
+        {{ 'messaging.description' | transloco }}
+      </p>
+    </div>
+    <div class="flex items-center gap-2 text-xs font-medium text-neutral-500 dark:text-neutral-400">
+      <span class="size-2 rounded-full bg-emerald-500"></span>
+      {{ 'messaging.presence' | transloco }}
+    </div>
+  </header>
+
+  @if (messagingStore.error(); as error) {
+  <div
+    class="rounded-md border border-error-200 bg-error-50 px-4 py-3 text-sm text-error-700 dark:border-error-900/60 dark:bg-error-950/30 dark:text-error-300">
+    {{ error | transloco }}
+  </div>
+  }
+
+  <main
+    class="grid min-h-[42rem] overflow-hidden rounded-lg border border-neutral-200 bg-white shadow-sm dark:border-neutral-800 dark:bg-neutral-900 lg:h-[calc(100dvh-14rem)] lg:min-h-[36rem] lg:grid-cols-[20rem_minmax(0,1fr)]">
+    <messaging-conversation-list
+      [activeConversationId]="messagingStore.activeConversationId()"
+      [conversations]="messagingStore.conversations()"
+      (conversationSelected)="messagingStore.selectConversation($event)" />
+
+    <div class="flex min-h-[34rem] min-w-0 flex-col">
+      <messaging-chat-thread
+        [conversation]="messagingStore.activeConversation()"
+        [currentUserId]="messagingStore.currentUserId()"
+        [loading]="messagingStore.loadingMessages()"
+        [messages]="messagingStore.messages()" />
+      <messaging-message-composer
+        [disabled]="!messagingStore.activeConversationId()"
+        [sending]="messagingStore.sending()"
+        (messageSent)="sendMessage($event)" />
+    </div>
+  </main>
+</div>

@@ -54,11 +54,112 @@
     },
     "navigation": {
       "general": {
+        "analytics": "Analytique",
+        "betaFeedback": "Retours beta",
         "dashboard": "Dashboard",
         "description": "Gestion des ressources",
         "label": "General",
         "roles": "Roles",
         "users": "Utilisateurs"
+      }
+    },
+    "betaFeedback": {
+      "description": "Triez les observations beta actives et integrez les constats valides dans la file de livraison.",
+      "empty": {
+        "description": "Les nouvelles contributions apparaitront ici des leur envoi par les testeurs beta.",
+        "title": "Aucun retour ne correspond a ces filtres"
+      },
+      "errors": {
+        "load": "Impossible de charger le journal des retours beta",
+        "update": "Impossible de mettre a jour le statut du retour"
+      },
+      "eyebrow": "Operations beta",
+      "filters": {
+        "allCategories": "Toutes les categories",
+        "allStatuses": "Tous les statuts",
+        "category": "Categorie",
+        "status": "Statut"
+      },
+      "loading": "Chargement des retours beta...",
+      "logTitle": "Journal des retours",
+      "metrics": {
+        "new": "A trier",
+        "rating": "Note moyenne",
+        "resolved": "Resolus",
+        "total": "Contributions totales"
+      },
+      "refresh": "Actualiser",
+      "status": {
+        "new": "Nouveau",
+        "planned": "Planifie",
+        "resolved": "Resolu",
+        "reviewing": "En analyse"
+      },
+      "table": {
+        "feedback": "Observation",
+        "rating": "Note",
+        "received": "Recu",
+        "status": "Statut",
+        "tester": "Contexte du testeur"
+      },
+      "title": "Journal des retours beta"
+    },
+    "analytics": {
+      "description": "Surveillez la sante des programmes, l'engagement de la plateforme et les rapports DigiPulse.",
+      "errors": {
+        "load": "Impossible de charger les donnees analytiques"
+      },
+      "eyebrow": "Intelligence des programmes",
+      "loading": "Preparation de l'espace analytique...",
+      "apiSource": "Donnees API en direct",
+      "metrics": {
+        "activeTalents": "Talents actifs",
+        "aiMatches": "Correspondances IA generees",
+        "collaborations": "Messages de collaboration",
+        "completionRate": "Taux de quetes terminees",
+        "platformRecords": "Enregistrements de la plateforme",
+        "roles": "Roles",
+        "users": "Utilisateurs"
+      },
+      "mockSource": "Donnees simulees",
+      "partialApiDescription": "Le backend actuel expose les totaux d'utilisateurs et de roles. Les series d'usage, la supervision des programmes et les rapports ne sont pas encore disponibles.",
+      "partialApiTitle": "Des analyses supplementaires attendent le support de l'API",
+      "programs": {
+        "coordinator": "Coordinateur",
+        "description": "Suivez la progression et ouvrez les preuves du talent associe a chaque projet.",
+        "progress": "Progression",
+        "project": "Projet du programme",
+        "status": "Statut",
+        "talent": "Talent",
+        "title": "Supervision des programmes",
+        "viewTalent": "Voir le talent"
+      },
+      "range": {
+        "7d": "7 jours",
+        "30d": "30 jours",
+        "90d": "90 jours",
+        "label": "Periode analytique"
+      },
+      "reports": {
+        "description": "Exports recents prepares pour les parties prenantes.",
+        "download": "Telecharger le rapport",
+        "engagementExport": "Export des donnees d'engagement",
+        "programHealth": "Synthese de sante du programme",
+        "title": "Centre de rapports"
+      },
+      "status": {
+        "attention": "Attention requise",
+        "completed": "Termine",
+        "on-track": "Sur la bonne voie"
+      },
+      "title": "Tableau de bord analytique admin",
+      "updated": "Mis a jour",
+      "usage": {
+        "activeUsers": "Utilisateurs actifs",
+        "description": "Activite quotidienne des parcours de correspondance et de collaboration.",
+        "matches": "Correspondances IA",
+        "messages": "Messages",
+        "title": "Dynamique d'utilisation"
       }
     },
     "roles": {
@@ -81,7 +182,9 @@
       "title": "Roles"
     },
     "routes": {
+      "analytics": "Analytique",
       "auth": "Authentification",
+      "betaFeedback": "Retours beta",
       "forgotPassword": "Mot de passe oublie",
       "forgotPasswordSent": "Lien envoye",
       "locked": "Acces restreint",
@@ -173,6 +276,59 @@
       "title": "Inscription"
     }
   },
+  "betaFeedback": {
+    "categories": {
+      "accessibility": "Accessibilite",
+      "ai-match": "Correspondance IA",
+      "messaging": "Messagerie",
+      "other": "Autre",
+      "performance": "Performance",
+      "usability": "Facilite d'utilisation"
+    },
+    "description": "Partagez une observation concrete de votre session beta afin d'aider l'equipe a prioriser la prochaine amelioration.",
+    "errors": {
+      "submit": "Votre retour n'a pas pu etre envoye. Veuillez reessayer."
+    },
+    "eyebrow": "Beta de la semaine 5",
+    "form": {
+      "betaBadge": "Canal beta",
+      "category": "Zone testee",
+      "contactAllowed": "L'equipe peut me contacter pour preciser ce retour",
+      "description": "Indiquez ce qui s'est passe, ou et comment vous avez vecu l'experience.",
+      "details": "Qu'avez-vous remarque ?",
+      "detailsPlaceholder": "Decrivez la tache, le resultat attendu et ce qui s'est passe...",
+      "email": "Email de contact",
+      "journey": "Parcours teste",
+      "rating": "Experience globale",
+      "ratingHigh": "Excellente",
+      "ratingLow": "Bloquante",
+      "role": "J'ai teste en tant que",
+      "submit": "Envoyer le retour",
+      "submitting": "Envoi...",
+      "title": "Retour de session"
+    },
+    "journeys": {
+      "applications": "Correspondance IA et candidatures",
+      "messaging": "Messagerie et collaboration",
+      "peer-reviews": "Evaluations par les pairs",
+      "profile": "Profil du talent",
+      "skills-gap": "Ecarts de competences"
+    },
+    "roles": {
+      "coordinator": "Coordinateur",
+      "employer": "Employeur",
+      "talent": "Talent"
+    },
+    "shortcut": {
+      "label": "Donner un retour sur cette page"
+    },
+    "success": {
+      "another": "Ajouter une autre observation",
+      "description": "Votre observation est maintenant disponible dans le journal admin pour analyse.",
+      "title": "Retour recu"
+    },
+    "title": "Contribuez a la prochaine iteration de DigiPulse"
+  },
   "common": {
     "active": "Actif",
     "actions": "Actions",
@@ -197,15 +353,53 @@
     "startNow": "Demarrer maintenant"
   },
   "applications": {
+    "dashboard": {
+      "apiProfile": "Profil API en direct",
+      "demoProfile": "Profil de demonstration",
+      "description": "Decouvrez comment les preuves de votre profil correspondent au role et quelle quete ciblee peut ameliorer votre compatibilite.",
+      "eyebrow": "Analyse de compatibilite par IA",
+      "loading": "Analyse de votre profil de talent pour ce role...",
+      "openProfile": "Ouvrir le profil",
+      "profileRequiredDescription": "Completez votre profil de talent avant de demander une analyse de compatibilite par IA.",
+      "profileRequiredTitle": "Profil de talent requis",
+      "title": "Tableau de bord des candidatures"
+    },
     "match": {
       "aiReviewed": "Analyse IA prete",
       "browseQuests": "Explorer les quetes",
+      "goodConfidence": "Bonne compatibilite",
+      "growthConfidence": "Compatibilite a developper",
+      "highConfidence": "Forte compatibilite",
+      "loadFailed": "Impossible de charger l'analyse de compatibilite par IA",
+      "apiHeadline": "Recommandation IA prete",
+      "apiSummaryFallback": "OpenRouter a genere une recommandation a partir de votre profil et des quetes disponibles.",
+      "mockHeadline": "Forte compatibilite avec ce role",
+      "mockSummary": "Votre profil recoupe le flux de donnees principal du role, avec un axe de progression cible avant de renforcer vos preuves projet.",
       "overlapTitle": "Competences alignees",
+      "reviewEta": "Pret maintenant",
+      "scoreAria": "Score de compatibilite de {{score}} pour cent",
       "scoreLabel": "Compatibilite",
+      "startConversation": "Demarrer une conversation",
       "viewSkillPlan": "Voir le plan de competences"
     },
     "rationale": {
       "description": "Consultez les preuves derriere cette recommandation.",
+      "growthTitle": "Espace de progression",
+      "growthAreaMetric": "Prochaine etape suggeree",
+      "apiGrowthDescription": "Ces competences ont ete retournees par le moteur de recommandation comme axes de progression cibles.",
+      "apiGrowthTitle": "Axe de progression recommande",
+      "apiReasonFallback": "Le moteur de recommandation n'a pas fourni d'explication ecrite.",
+      "apiReasonTitle": "Justification de la recommandation OpenRouter",
+      "mockGrowthAreaDescription": "La narration de tableaux de bord est la competence la plus claire a renforcer avant le prochain point de candidature.",
+      "mockGrowthAreaTitle": "Un axe de progression",
+      "mockProjectFitDescription": "Vos projets soumis correspondent au meme flux de nettoyage et d'analyse de donnees que celui attendu pour ce role.",
+      "mockProjectFitTitle": "Preuves projet coherentes",
+      "mockSkillOverlapDescription": "Python, Data Analysis et SQL recoupent directement les exigences les plus importantes du role.",
+      "mockSkillOverlapTitle": "Competences cles alignees",
+      "noGrowthItems": "Aucun axe de progression cible n'est requis pour ce role pour le moment.",
+      "overlapTitle": "Avantages d'alignement",
+      "projectFitMetric": "Gain estime",
+      "skillOverlapMetric": "Exigences couvertes",
       "title": "Pourquoi cette compatibilite ?"
     }
   },
@@ -280,7 +474,49 @@
       "label": "Mon compte",
       "security": "Mot de passe"
     },
+    "applications": "Candidatures",
+    "betaFeedback": "Retours beta",
+    "messaging": "Messagerie",
     "peerReviews": "Évaluations par les pairs"
+  },
+  "messaging": {
+    "composer": {
+      "label": "Message",
+      "placeholder": "Ecrivez une prochaine etape claire...",
+      "send": "Envoyer",
+      "sending": "Envoi..."
+    },
+    "conversations": {
+      "description": "Echanges talents, employeurs et coordinateurs",
+      "empty": "Aucune conversation pour le moment.",
+      "title": "Conversations",
+      "unread": "Messages non lus"
+    },
+    "description": "Regroupez candidatures, jalons de projet et retours dans un espace de conversation cible.",
+    "errors": {
+      "load": "Impossible de charger l'espace de messagerie",
+      "messages": "Impossible de charger ce fil de messages",
+      "send": "Impossible d'envoyer le message"
+    },
+    "eyebrow": "Centre de collaboration",
+    "apiSource": "Conversation API en direct",
+    "conversationFallback": "Conversation directe",
+    "mockSource": "Conversation simulee",
+    "participantFallback": "Participant",
+    "presence": "Reseau de collaboration en ligne",
+    "roles": {
+      "coordinator": "Coordinateur",
+      "employer": "Employeur",
+      "participant": "Participant",
+      "talent": "Talent"
+    },
+    "thread": {
+      "empty": "Demarrez la conversation avec une prochaine etape concrete.",
+      "selectDescription": "Choisissez une conversation pour consulter son historique.",
+      "selectTitle": "Selectionnez une conversation",
+      "today": "Aujourd'hui"
+    },
+    "title": "Centre de messagerie"
   },
   "peerReviews": {
     "title": "Évaluations par les pairs",
@@ -303,6 +539,23 @@
       "title": "Informations du compte"
     },
     "description": "Gerez les informations de votre compte et votre mot de passe.",
+    "directory": {
+      "about": "A propos",
+      "apiSource": "Profil API en direct",
+      "availability": {
+        "limited": "Disponibilite limitee",
+        "open": "Disponible pour des projets"
+      },
+      "availabilityHours": "{{hours}} heures par semaine",
+      "availabilityUnavailable": "Disponibilite non renseignee",
+      "mockSource": "Profil simule",
+      "projects": "Preuves de projet",
+      "projectsUnavailable": "L'API actuelle des profils talent n'expose pas les preuves de projet.",
+      "skills": "Competences du profil",
+      "startConversation": "Demarrer une conversation",
+      "unavailableDescription": "Le backend actuel expose uniquement le profil de l'utilisateur connecte. Un endpoint de recherche de talent est requis pour le drill-down administrateur.",
+      "unavailableTitle": "Ce profil talent n'est pas disponible via l'API"
+    },
     "security": {
       "description": "Choisissez un nouveau mot de passe, puis confirmez-le avant d'enregistrer.",
       "title": "Changer le mot de passe"
@@ -328,15 +581,20 @@
   },
   "routes": {
     "account": "Compte",
+    "applications": "Candidatures",
     "auth": "Authentification",
+    "betaFeedback": "Retours beta",
     "forgotPassword": "Mot de passe oublie",
     "forgotPasswordSent": "Lien envoye",
     "home": "Accueil",
+    "messaging": "Messagerie",
     "profile": "Profil",
     "resetPassword": "Reinitialiser le mot de passe",
     "security": "Securite",
     "signIn": "Connexion",
-    "signUp": "Inscription"
+    "signUp": "Inscription",
+    "peerReviews": "Evaluations par les pairs",
+    "talentProfile": "Profil du talent"
   },
   "theme": {
     "dark": "Sombre",

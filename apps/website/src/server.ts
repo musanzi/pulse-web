@@ -1,3 +1,4 @@
+import { timingSafeEqual } from 'node:crypto';
 import { join } from 'node:path';
 import {
   AngularNodeAppEngine,
@@ -6,25 +7,75 @@ import {
   writeResponseToNodeResponse
 } from '@angular/ssr/node';
 import express from 'express';
+import { createBetaFeedbackRouter, ensureBetaFeedbackStorage } from './beta-feedback-api';
 
 const browserDistFolder = join(import.meta.dirname, '../browser');
 
 const app = express();
+const allowedHosts = (process.env['ALLOWED_HOSTS'] ?? '*.localhost,localhost')
+  .split(',')
+  .map((host) => host.trim())
+  .filter(Boolean);
+const allowedOrigins = (process.env['BETA_ALLOWED_ORIGINS'] ?? 'http://admin.localhost,http://localhost:4300')
+  .split(',')
+  .map((origin) => origin.trim());
+const adminHosts = (process.env['BETA_ADMIN_HOSTS'] ?? 'admin.localhost').split(',').map((host) => host.trim());
+const adminToken = process.env['BETA_ADMIN_TOKEN']?.trim() ?? '';
+const production = process.env['NODE_ENV'] === 'production';
 const angularApp = new AngularNodeAppEngine({
-  allowedHosts: ['*.localhost', 'localhost']
+  allowedHosts
 });
 
-/**
- * Example Express Rest API endpoints can be defined here.
- * Uncomment and define endpoints as necessary.
- *
- * Example:
- * ```ts
- * app.get('/api/{*splat}', (req, res) => {
- *   // Handle API request
- * });
- * ```
- */
+app.get('/healthz', (_request, response) => {
+  response.status(200).json({ service: 'website', status: 'ok' });
+});
+
+app.get('/readyz', async (_request, response) => {
+  try {
+    await ensureBetaFeedbackStorage();
+    response.status(200).json({ checks: { feedbackStorage: 'ok' }, service: 'website', status: 'ready' });
+  } catch {
+    response.status(503).json({ checks: { feedbackStorage: 'unavailable' }, service: 'website', status: 'not-ready' });
+  }
+});
+
+app.use('/beta-api', (request, response, next) => {
+  const origin = request.headers.origin;
+  const suppliedToken = request.header('X-Beta-Admin-Token') ?? '';
+  const trustedDevelopmentOrigin =
+    !production && (adminHosts.includes(request.hostname) || (origin ? allowedOrigins.includes(origin) : false));
+  const adminRequest = trustedDevelopmentOrigin || tokensMatch(suppliedToken, adminToken);
+
+  if (origin && allowedOrigins.includes(origin)) {
+    response.setHeader('Access-Control-Allow-Origin', origin);
+    response.setHeader('Vary', 'Origin');
+    response.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    response.setHeader('Access-Control-Allow-Methods', 'GET,POST,PATCH,OPTIONS');
+  }
+
+  if (request.method === 'OPTIONS') {
+    response.sendStatus(204);
+    return;
+  }
+
+  if (request.method !== 'POST' && !adminRequest) {
+    response.status(403).json({ message: 'Admin feedback access required' });
+    return;
+  }
+
+  next();
+});
+app.use('/beta-api', createBetaFeedbackRouter());
+
+function tokensMatch(suppliedToken: string, expectedToken: string): boolean {
+  if (!suppliedToken || !expectedToken) {
+    return false;
+  }
+
+  const supplied = Buffer.from(suppliedToken);
+  const expected = Buffer.from(expectedToken);
+  return supplied.length === expected.length && timingSafeEqual(supplied, expected);
+}
 
 /**
  * Serve static files from /browser

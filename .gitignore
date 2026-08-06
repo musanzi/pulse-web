@@ -47,3 +47,8 @@ Thumbs.db
 .nx/workspace-data
 .nx/migrate-runs
 .angular
+.pnpm-store
+
+# Week 5 beta feedback is persisted by the Website SSR service.
+/data/*.json
+.env.beta

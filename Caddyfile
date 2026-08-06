@@ -1,0 +1,59 @@
+(security) {
+	encode zstd gzip
+	header {
+		-Server
+		Permissions-Policy "camera=(), microphone=(), geolocation=()"
+		Referrer-Policy "strict-origin-when-cross-origin"
+		X-Content-Type-Options "nosniff"
+		X-Frame-Options "SAMEORIGIN"
+	}
+}
+
+{$WEBSITE_ADDRESS:http://app.localhost} {
+	import security
+
+	@feedbackSubmission {
+		method POST OPTIONS
+		path /beta-api/feedback
+	}
+
+	handle @feedbackSubmission {
+		reverse_proxy website:4200
+	}
+
+	handle /beta-api/* {
+		respond "Not found" 404
+	}
+
+	handle_path /api/* {
+		reverse_proxy {$API_UPSTREAM:host.docker.internal:8000}
+	}
+
+	handle {
+		reverse_proxy website:4200 {
+			health_uri /healthz
+			health_interval 15s
+		}
+	}
+}
+
+{$ADMIN_ADDRESS:http://admin.localhost} {
+	import security
+
+	handle /beta-api/* {
+		reverse_proxy website:4200 {
+			header_up X-Beta-Admin-Token {$BETA_ADMIN_TOKEN}
+		}
+	}
+
+	handle_path /api/* {
+		reverse_proxy {$API_UPSTREAM:host.docker.internal:8000}
+	}
+
+	handle {
+		reverse_proxy admin:4300 {
+			health_uri /healthz
+			health_interval 15s
+		}
+	}
+}

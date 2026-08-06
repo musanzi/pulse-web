@@ -1,0 +1,71 @@
+<aside
+  class="flex max-h-72 min-h-0 flex-col border-b border-neutral-200 bg-white dark:border-neutral-800 dark:bg-neutral-900 lg:max-h-none lg:border-r lg:border-b-0">
+  <div class="border-b border-neutral-200 px-4 py-4 dark:border-neutral-800">
+    <div class="flex items-center justify-between gap-3">
+      <div>
+        <h2 class="text-base font-semibold text-neutral-950 dark:text-white">
+          {{ 'messaging.conversations.title' | transloco }}
+        </h2>
+        <p class="mt-0.5 text-xs text-neutral-500 dark:text-neutral-400">
+          {{ 'messaging.conversations.description' | transloco }}
+        </p>
+      </div>
+      <span class="rounded-full bg-neutral-100 px-2 py-1 font-mono text-xs font-semibold dark:bg-neutral-800">
+        {{ conversations().length }}
+      </span>
+    </div>
+  </div>
+
+  <mat-nav-list class="min-h-0 flex-1 overflow-y-auto p-2">
+    @for (conversation of conversations(); track conversation.id) {
+    <button
+      mat-list-item
+      type="button"
+      class="mb-1 h-auto min-h-20 rounded-md"
+      [class.bg-primary-50]="conversation.id === activeConversationId()"
+      [class.dark:bg-primary-950/30]="conversation.id === activeConversationId()"
+      (click)="conversationSelected.emit(conversation.id)">
+      <div class="flex w-full items-start gap-3 py-2">
+        <div
+          class="relative mt-0.5 grid size-9 shrink-0 place-items-center rounded-full bg-neutral-100 dark:bg-neutral-800">
+          <mat-icon class="size-4 text-neutral-500 dark:text-neutral-300" svgIcon="users-round"></mat-icon>
+          @if (conversation.participants[1]?.online) {
+          <span
+            class="absolute right-0 bottom-0 size-2.5 rounded-full border-2 border-white bg-emerald-500 dark:border-neutral-900"></span>
+          }
+        </div>
+
+        <div class="min-w-0 flex-1 text-left">
+          <div class="flex items-start justify-between gap-2">
+            <span class="truncate text-sm font-semibold text-neutral-900 dark:text-white">
+          {{ conversation.participants[1]?.name ?? ('messaging.participantFallback' | transloco) }}
+            </span>
+            <span class="shrink-0 text-[0.6875rem] text-neutral-400">
+              {{ conversation.lastMessageAt | date: 'MMM d' }}
+            </span>
+          </div>
+          <div class="mt-0.5 truncate text-xs font-medium text-primary-700 dark:text-primary-300">
+          {{ conversation.projectTitle || ('messaging.conversationFallback' | transloco) }}
+          </div>
+          <div class="mt-1 flex items-center gap-2">
+            <span class="min-w-0 flex-1 truncate text-xs text-neutral-500 dark:text-neutral-400">
+              {{ conversation.lastMessagePreview }}
+            </span>
+            @if (conversation.unreadCount > 0) {
+            <span
+              class="grid size-5 shrink-0 place-items-center rounded-full bg-primary-600 text-[0.6875rem] font-semibold text-white"
+              [matBadge]="conversation.unreadCount"
+              [matBadgeDescription]="'messaging.conversations.unread' | transloco">
+            </span>
+            }
+          </div>
+        </div>
+      </div>
+    </button>
+    } @empty {
+    <div class="grid min-h-48 place-items-center px-6 text-center text-sm text-neutral-500 dark:text-neutral-400">
+      {{ 'messaging.conversations.empty' | transloco }}
+    </div>
+    }
+  </mat-nav-list>
+</aside>

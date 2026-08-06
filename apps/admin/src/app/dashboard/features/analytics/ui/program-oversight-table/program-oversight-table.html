@@ -1,0 +1,72 @@
+<section
+  class="overflow-hidden rounded-lg border border-neutral-200 bg-white dark:border-neutral-800 dark:bg-neutral-900">
+  <div class="border-b border-neutral-200 px-4 py-4 dark:border-neutral-800 sm:px-5">
+    <h2 class="font-semibold text-neutral-950 dark:text-white">{{ 'admin.analytics.programs.title' | transloco }}</h2>
+    <p class="mt-1 text-sm text-neutral-500 dark:text-neutral-400">
+      {{ 'admin.analytics.programs.description' | transloco }}
+    </p>
+  </div>
+
+  <div class="overflow-x-auto">
+    <table mat-table [dataSource]="programs()" class="w-full min-w-[54rem]">
+      <ng-container matColumnDef="project">
+        <th mat-header-cell *matHeaderCellDef>{{ 'admin.analytics.programs.project' | transloco }}</th>
+        <td mat-cell *matCellDef="let row">
+          <div class="font-medium text-neutral-900 dark:text-white">{{ row.projectName }}</div>
+          <div class="mt-0.5 font-mono text-xs text-neutral-400">{{ row.projectId }}</div>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="talent">
+        <th mat-header-cell *matHeaderCellDef>{{ 'admin.analytics.programs.talent' | transloco }}</th>
+        <td mat-cell *matCellDef="let row">{{ row.talentName }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="coordinator">
+        <th mat-header-cell *matHeaderCellDef>{{ 'admin.analytics.programs.coordinator' | transloco }}</th>
+        <td mat-cell *matCellDef="let row">{{ row.coordinatorName }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="progress">
+        <th mat-header-cell *matHeaderCellDef>{{ 'admin.analytics.programs.progress' | transloco }}</th>
+        <td mat-cell *matCellDef="let row">
+          <div class="flex min-w-32 items-center gap-2">
+            <mat-progress-bar class="flex-1" mode="determinate" [value]="row.completionPercent"></mat-progress-bar>
+            <span class="w-9 font-mono text-xs">{{ row.completionPercent }}%</span>
+          </div>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef>{{ 'admin.analytics.programs.status' | transloco }}</th>
+        <td mat-cell *matCellDef="let row">
+          <span
+            class="inline-flex rounded-full px-2.5 py-1 text-xs font-semibold"
+            [class.bg-emerald-50]="row.status === 'on-track' || row.status === 'completed'"
+            [class.text-emerald-700]="row.status === 'on-track' || row.status === 'completed'"
+            [class.dark:bg-emerald-950/40]="row.status === 'on-track' || row.status === 'completed'"
+            [class.dark:text-emerald-300]="row.status === 'on-track' || row.status === 'completed'"
+            [class.bg-amber-50]="row.status === 'attention'"
+            [class.text-amber-700]="row.status === 'attention'"
+            [class.dark:bg-amber-950/40]="row.status === 'attention'"
+            [class.dark:text-amber-300]="row.status === 'attention'">
+            {{ ('admin.analytics.status.' + row.status) | transloco }}
+          </span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef><span class="sr-only">{{ 'common.actions' | transloco }}</span></th>
+        <td mat-cell *matCellDef="let row">
+          <a matButton="outlined" [href]="talentHref(row)">
+            <mat-icon svgIcon="external-link"></mat-icon>
+            {{ 'admin.analytics.programs.viewTalent' | transloco }}
+          </a>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </div>
+</section>

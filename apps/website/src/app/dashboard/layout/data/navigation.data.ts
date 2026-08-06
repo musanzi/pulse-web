@@ -19,11 +19,28 @@ export const NAVIGATION: INavigationItem[] = [
         route: '/dashboard/security'
       },
       {
-  
+        id: 'applications',
+        label: 'navigation.applications',
+        icon: 'briefcase-business',
+        route: '/dashboard/applications'
+      },
+      {
         id: 'peer-reviews',
         label: 'navigation.peerReviews',
         icon: 'users',
         route: '/dashboard/peer-reviews'
+      },
+      {
+        id: 'messaging',
+        label: 'navigation.messaging',
+        icon: 'messages-square',
+        route: '/dashboard/messaging'
+      },
+      {
+        id: 'beta-feedback',
+        label: 'navigation.betaFeedback',
+        icon: 'message-square-more',
+        route: '/dashboard/feedback'
       }
     ]
   }
